@@ -1,8 +1,8 @@
 # Gotron
-A boilerplate for cross-platform Golang desktop applications using Electron as Gui.
+A boilerplate for cross-platform desktop applications using Golang and Electron.
 
 ## Run
-**golang**, **nodejs** and **npm** should be available on your system.  
+**go**, **nodejs** and **npm** should be available on your system.  
 
 Install Electron globally
 
@@ -34,7 +34,7 @@ Now you should see this
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
-Go to *ui/js/src/app.js* and replace line 6 with
+Open *ui/js/src/app.js* and replace line 6 with
 
     topic.innerHTML = 'Hello Frontend Workflow';
 
