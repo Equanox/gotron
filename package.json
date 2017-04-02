@@ -1,0 +1,19 @@
+{
+  "name": "gotron",
+  "description": "Golang & Electron Boilerplate for Platform Independent Desktop Apps ",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/equanox/gotron.git"
+  },
+  "author": "equanox",
+  "scripts": {
+    "install": "cd app && npm install && cd .. && cd ui/js && npm install",
+    "postinstall": "go get -d ./...",
+    "build": "cd ui/js && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
+    "postbuild": "echo Build Ui, cp bundle.js to app/assets/js/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

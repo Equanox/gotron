@@ -1,0 +1,14 @@
+{
+  "name": "frontend",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "css-loader": "^0.27.3",
+    "file-loader": "^0.11.1",
+    "style-loader": "^0.16.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.2"
+  },
+  "dependencies": {}
+}
