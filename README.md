@@ -1,5 +1,5 @@
 # Gotron
-A boilerplate for cross-platform golang desktop applications using electron as Gui.
+A boilerplate for cross-platform Golang desktop applications using Electron as Gui.
 
 ## Run
 **golang**, **nodejs** and **npm** should be available on your system.  
@@ -12,7 +12,7 @@ Clone to your go workspace (e.g. go/src)
 
     git clone https://github.com/equanox/gotron
 
-Use npm install script and start application using main.go
+Use npm install script and start the application
 ```
 cd gotron
 npm run install
@@ -38,7 +38,7 @@ Go to *ui/js/src/app.js* and replace line 6 with
 
     topic.innerHTML = 'Hello Frontend Workflow';
 
-Then type in root dir
+In Gotron root dir type
 
     npm run build
     go run main.go
