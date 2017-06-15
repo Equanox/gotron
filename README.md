@@ -27,26 +27,32 @@ Now you should see this
 - [x] Basic js + webpack example
 - [ ] Typscript example
 - [ ] Elm example
-- [ ] React example
+- [x] React example
 - [ ] Vue.js example
 - [ ] Electron appearance on OS
 - [ ] Create executables for Win, MacOS, Linux
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
-Open *ui/js/src/app.js* and replace line 6 with
+Take a look into ui/js or ui/react for details.
 
-    topic.innerHTML = 'Hello Frontend Workflow';
+For plain Javascript use
 
-In Gotron root dir type
+    npm run build  
 
-    npm run build
+For the react frontend use
+
+    npm run build-react
+
+then type
+
     go run main.go
 
-Reload updated index.js using 'r' key.
+to bring up go backend and electron frontend.
 
+Reload updated index.js using 'r' key.
 # License
 MIT  
 
-Except Roboto (ui/js/src/Roboto-Light.ttf) which is licensed under Apache 2.0   
+Except Roboto (ui/js/src/Roboto-Light.ttf , ui/react/src/Roboto-Light.ttf) which is licensed under Apache 2.0   
 https://github.com/google/roboto

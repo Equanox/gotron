@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -75,7 +75,7 @@ __webpack_require__(9);
 window.onload = function () {
     var topic = document.createElement("h1");
     topic.className = 'topic';
-    topic.innerHTML = 'Hello Gotron';
+    topic.innerHTML = 'Hello Gotron / JS';
 
     document.body.appendChild(topic);
 }

@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "css-loader": "^0.27.3",
+    "file-loader": "^0.11.1",
+    "style-loader": "^0.16.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.2"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
