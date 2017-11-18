@@ -25,16 +25,17 @@ Now you should see this
 
 ## Tasks
 - [x] Basic js + webpack example
-- [ ] Typscript example
-- [ ] Elm example
 - [x] React example
+- [x] Typescript-React example
+- [ ] Elm example
 - [ ] Vue.js example
 - [ ] Electron appearance on OS
 - [ ] Create executables for Win, MacOS, Linux
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
-Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js) or [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react) for details.
+Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js) or [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react) or
+[ui/typescript-react](https://github.com/Equanox/gotron/tree/master/ui/typescript) or  for details.
 
 For plain Javascript use
 
@@ -43,6 +44,10 @@ For plain Javascript use
 For the react frontend use
 
     npm run build-react
+
+For the typescript-react frontend use
+
+    npm run build-typescript
 
 then type
 

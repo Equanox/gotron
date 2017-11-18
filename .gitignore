@@ -2,6 +2,8 @@ ui/js/build
 ui/react/build
 ui/js/node_modules
 ui/react/node_modules
+ui/typescript/build
+ui/typescript/node_modules
 node_modules
 ui/node_modules
 app/node_modules
