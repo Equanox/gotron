@@ -34,8 +34,8 @@ Now you should see this
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
-Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js) or [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react) or
-[ui/typescript-react](https://github.com/Equanox/gotron/tree/master/ui/typescript) or  for details.
+Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js), [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react) or
+[ui/typescript-react](https://github.com/Equanox/gotron/tree/master/ui/typescript) for details.
 
 For plain Javascript use
 

@@ -16,7 +16,7 @@ export class Root extends React.Component<RootProps, RootState> {
   render() {
     return (
       <h1 className={styles.topic}>
-        Hello Gotron / Typescript
+        Hello Gotron / Typescript-React
       </h1>
     )
   }

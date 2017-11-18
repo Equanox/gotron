@@ -9,9 +9,9 @@
   },
   "author": "equanox",
   "scripts": {
-    "install": "(cd app && npm install) && (cd ui/js && npm install) && (cd ui/react && npm install)",
+    "install": "(cd app && npm install) && (cd ui/js && npm install) && (cd ui/react && npm install) && (cd ui/typescript && npm install)",
     "postinstall": "go get -d ./...",
-    "clean": "(rm -r app/node_modules) && (rm -r ui/js/node_modules) && (rm -r ui/react/node_modules)",
+    "clean": "(rm -r app/node_modules) && (rm -r ui/js/node_modules) && (rm -r ui/react/node_modules) && (rm -r ui/typescript/node_modules)",
     "build": "cd ui/js && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
     "postbuild": "echo Build Ui {ui/js}, cp bundle.js to app/assets/js/index.js",
     "build-react": "cd ui/react && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
