@@ -7,9 +7,15 @@ injectTapEventPlugin();
 
 import { Root } from 'root';
 
+const id = 'reactRoot'
+let body = document.getElementsByTagName("body")[0];
+let reactRoot = document.createElement("div");
+reactRoot.id = id
+body.appendChild(reactRoot);
+
 ReactDOM.render(
   <Root />,
-  document.getElementsByTagName("body")[0]
+  document.getElementById(id)
 );
 
 //Reload on keypress 'r'
