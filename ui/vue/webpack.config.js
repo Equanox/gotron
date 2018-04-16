@@ -1,5 +1,4 @@
 var path = require("path");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var configuration = {
   /*
@@ -53,6 +52,13 @@ var configuration = {
         loader: 'babel-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },      
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
