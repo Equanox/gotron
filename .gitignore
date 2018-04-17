@@ -1,9 +1,7 @@
 node_modules/
 package-lock.json
 build/
-
+vendor/
 .vscode/
 
 *.d.ts
-
-app/assets/js/*
