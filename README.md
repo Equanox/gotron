@@ -28,7 +28,7 @@ Now you should see this
 - [x] React example
 - [x] Typescript-React example
 - [ ] Elm example
-- [ ] Vue.js example
+- [x] Vue.js example
 - [ ] Electron appearance on OS
 - [ ] Create executables for Win, MacOS, Linux
 - [ ] Config for go-nodejs socket
@@ -48,6 +48,10 @@ For the react frontend use
 For the typescript-react frontend use
 
     npm run build-typescript
+
+For the vueJS frontend use
+
+    npm run build-vue    
 
 then type
 
