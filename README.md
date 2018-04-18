@@ -16,6 +16,7 @@ Use npm install script and start the application
 ```
 cd gotron
 npm run install
+npm run build
 go run main.go
 ```
 Now you should see this
