@@ -30,7 +30,8 @@ Now you should see this
 - [x] Typescript-React example
 - [ ] Elm example
 - [x] Vue.js example
-- [ ] Electron appearance on OS
+- [ ] Communication between go and electron renderer process
+- <del>[ ] Electron appearance on OS</del>
 - [ ] Create executables for Win, MacOS, Linux
 - [ ] Config for go-nodejs socket
 
