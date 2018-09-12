@@ -34,21 +34,19 @@ var configuration = {
      * the test. Then it will apply the loader to that file. I haven't
      * installed ts-loader yet, but will do that shortly.
      */
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
-        include: __dirname + '/src',
+        use: ['style-loader', 'css-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.(ttf)$/,
-        loader: 'url-loader?limit=100000'
+        use: 'url-loader?limit=100000'
       },
       {
         test : /\.jsx?/,
-        loader : 'babel-loader',
-        include : __dirname + '/src'
+        use : 'babel-loader',
       }
 
     ]

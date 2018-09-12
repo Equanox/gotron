@@ -2,7 +2,7 @@
 A boilerplate for cross-platform desktop applications using Golang and Electron.
 
 ## Run
-**go**, **nodejs** and **npm** should be available on your system.  
+**go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
 
 Install Electron globally
 
@@ -45,15 +45,15 @@ For plain Javascript use
 
 For the react frontend use
 
-    npm run build-react
+    npm run build:react
 
 For the typescript-react frontend use
 
-    npm run build-typescript
+    npm run build:typescript
 
 For the vueJS frontend use
 
-    npm run build-vue    
+    npm run build:vue    
 
 then type
 

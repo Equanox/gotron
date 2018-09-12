@@ -23,7 +23,7 @@ var configuration = {
    * in your code.
    */
   resolve: {
-    extensions: ['.js', '.css']
+    extensions: ['.js', '.css', '.ttf']
   },
 
   module: {
@@ -34,17 +34,17 @@ var configuration = {
      * the test. Then it will apply the loader to that file. I haven't
      * installed ts-loader yet, but will do that shortly.
      */
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
-        include: __dirname + '/src',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [ 'style-loader', 'css-loader' ]
       },
       {
-         test: /\.(ttf)$/,
+        test: /\.(ttf)$/,
+        exclude: /node_modules/,
         loader: 'url-loader?limit=100000'
-      }
+     }
     ]
   }
 };

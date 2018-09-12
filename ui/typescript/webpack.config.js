@@ -41,18 +41,12 @@ var configuration = {
     rules: [
       {
         test: /\.css$/,
-        loaders: ['style-loader'],
-        include: __dirname + '/src',
+        use: ['style-loader', 'css-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.(ttf)$/,
         loader: 'url-loader?limit=100000'
-      },
-      {
-        test: /\.css$/,
-        loader: 'typings-for-css-modules-loader?modules&namedExport&camelCase',
-        exclude: /node_modules/
       },
       {
         test: /\.(ts|tsx)$/,

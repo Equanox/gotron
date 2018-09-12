@@ -9,18 +9,29 @@
   },
   "author": "equanox",
   "scripts": {
-    "install": "(cd app && npm install) && (cd ui/js && npm install) && (cd ui/react && npm install) && (cd ui/typescript && npm install) && (cd ui/vue && npm install)",
+    "install": "npm run install:app && npm run install:ui:js && npm run install:ui:react && npm run install:ui:typescript && npm run install:ui:vue",
+    "install:app": "cd app && npm install",
+    "install:ui:js": "cd ui/js && npm install",
+    "install:ui:react": "cd ui/react && npm install",
+    "install:ui:typescript": "cd ui/typescript && npm install",
+    "install:ui:vue": "cd ui/vue && npm install",
     "postinstall": "go get -d ./...",
-    "clean": "(rm -r app/node_modules) && (rm -r ui/js/node_modules) && (rm -r ui/react/node_modules) && (rm -r ui/typescript/node_modules) && (rm -r ui/vue/node_modules)",
-    "build": "cd ui/js && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
-    "postbuild": "echo Build Ui {ui/js}, cp bundle.js to app/assets/js/index.js",
-    "build-react": "cd ui/react && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
-    "postbuild-react": "echo Build Ui {ui/react}, cp bundle.js to app/assets/js/index.js",
-    "build-typescript": "cd ui/typescript && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
-    "postbuild-typescript": "echo Build Ui {ui/typescript}, cp bundle.js to app/assets/js/index.js",
-    "build-vue": "cd ui/vue && npm run build && cp -R build/. ../../app/assets/ && mv ../../app/assets/bundle.js ../../app/assets/js/index.js",
-    "postbuild-vue": "echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js"
+    "clean": "del-cli app/node_modules && del-cli ui/js/node_modules && del-cli ui/react/node_modules && del-cli ui/typescript/node_modules && del-cli ui/vue/node_modules && del-cli node_modules",
+    "build": "npm run build:js",
+    "build:js": "cd ui/js && npm run build",
+    "postbuild:js": "cpy ui/js/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo \"Build Ui {ui/js}, cp bundle.js to app/assets/js/index.js\"",
+    "build:react": "cd ui/react && npm run build",
+    "postbuild:react": "cpy ui/react/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/react}, cp bundle.js to app/assets/js/index.js",
+    "build:typescript": "cd ui/typescript && npm run build",
+    "postbuild:typescript": "cpy ui/typescript/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/typescript}, cp bundle.js to app/assets/js/index.js",
+    "build:vue": "cd ui/vue && npm run build",
+    "postbuild:vue": "cpy ui/vue/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "cpy": "^7.0.1",
+    "cpy-cli": "^2.0.0",
+    "del-cli": "^1.1.0",
+    "move-cli": "^1.2.0"
+  }
 }
