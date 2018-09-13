@@ -119,8 +119,11 @@ func main() {
 	http.HandleFunc("/ui", socket)    //Endpoint for Electron startup/teardown
 	go http.ListenAndServe(addr, nil) //Start websockets in goroutine
 
+	//TODO check if app/node_modules/electron/dist/electron available
+	//	    and warn or panic.
+
 	log.Printf("Starting Electron...")
-	cmd := exec.Command("electron", "app")
+	cmd := exec.Command("app/node_modules/electron/dist/electron", "app")
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)
