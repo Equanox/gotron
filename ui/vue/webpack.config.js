@@ -57,14 +57,16 @@ var configuration = {
         use: [
           'style-loader',
           'css-loader'
-        ]
+        ],
+        exclude: /node_modules/
       },      
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
-        }
+        },
+        exclude: /node_modules/
       }
     ]
   }
