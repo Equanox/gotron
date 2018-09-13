@@ -9,6 +9,7 @@
   },
   "author": "equanox",
   "scripts": {
+    "build:go": "go build",
     "install": "npm run install:app && npm run install:ui:js && npm run install:ui:react && npm run install:ui:typescript && npm run install:ui:vue",
     "install:app": "cd app && npm install",
     "install:ui:js": "cd ui/js && npm install",
@@ -25,13 +26,37 @@
     "build:typescript": "cd ui/typescript && npm run build",
     "postbuild:typescript": "cpy ui/typescript/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/typescript}, cp bundle.js to app/assets/js/index.js",
     "build:vue": "cd ui/vue && npm run build",
-    "postbuild:vue": "cpy ui/vue/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js"
+    "postbuild:vue": "cpy ui/vue/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js",
+    "dist": "dist:win && dist:linux && dist:mac",
+    "dist:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod",
+    "postdist:win": "move-cli gotron.exe dist/win-unpacked/gotron.exe",
+    "dist:linux": "build -l && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod",
+    "postdist:linux": "move-cli gotron dist/linux-unpacked/gotron",
+    "dist:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
+    "postdist:mac": "move-cli gotron dist/mac-unpacked/gotron"
+  },
+  "build": {
+    "appId": "equanox.gotron",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": "deb"
+    },
+    "mac": {
+      "target": "pkg"
+    }
   },
   "dependencies": {},
   "devDependencies": {
     "cpy": "^7.0.1",
     "cpy-cli": "^2.0.0",
+    "cross-env": "^5.2.0",
     "del-cli": "^1.1.0",
+    "electron-builder": "^20.28.4",
     "move-cli": "^1.2.0"
   }
 }
