@@ -42,11 +42,13 @@ var configuration = {
       },
       {
         test: /\.(ttf)$/,
-        use: 'url-loader?limit=100000'
+        use: 'url-loader?limit=100000',
+        exclude: /node_modules/
       },
       {
         test : /\.jsx?/,
         use : 'babel-loader',
+        exclude: /node_modules/
       }
 
     ]

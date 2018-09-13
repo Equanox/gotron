@@ -124,7 +124,7 @@ func main() {
 	//	    and warn or panic.
 	var electronPath = "app/node_modules/electron/dist"
 	if _, err := os.Stat(electronPath); os.IsNotExist(err) {
-		panic("Electron is not installed. Please run \"npm install\".")
+		panic("Electron is not available in app folder.\n Please run \"npm install\".")
 	}
 
 	log.Printf("Starting Electron...")
