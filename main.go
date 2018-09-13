@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 
 	"github.com/fatih/color"
@@ -119,8 +120,15 @@ func main() {
 	http.HandleFunc("/ui", socket)    //Endpoint for Electron startup/teardown
 	go http.ListenAndServe(addr, nil) //Start websockets in goroutine
 
+	// check if app/node_modules/electron/dist/electron available
+	//	    and warn or panic.
+	var electronPath = "app/node_modules/electron/dist"
+	if _, err := os.Stat(electronPath); os.IsNotExist(err) {
+		panic("Electron is not installed. Please run \"npm install\".")
+	}
+
 	log.Printf("Starting Electron...")
-	cmd := exec.Command("electron", "app")
+	cmd := exec.Command(electronPath+"/electron", "app")
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)
