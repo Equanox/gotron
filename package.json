@@ -9,7 +9,7 @@
   },
   "author": "equanox",
   "scripts": {
-    "build:go": "go build",
+    "go": "go build && gotron",
     "install": "npm run install:app && npm run install:ui:js && npm run install:ui:react && npm run install:ui:typescript && npm run install:ui:vue",
     "install:app": "cd app && npm install",
     "install:ui:js": "cd ui/js && npm install",
@@ -30,7 +30,7 @@
     "dist": "dist:win && dist:linux && dist:mac",
     "dist:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod",
     "postdist:win": "move-cli gotron.exe dist/win-unpacked/gotron.exe",
-    "dist:linux": "build -l && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod",
+    "dist:linux": "build -l && cross-env-shell GOOS=linux GOARCH=amd64 go build -tags prod",
     "postdist:linux": "move-cli gotron dist/linux-unpacked/gotron",
     "dist:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
     "postdist:mac": "move-cli gotron dist/mac-unpacked/gotron"

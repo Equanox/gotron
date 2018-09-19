@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 )
 
+// FrontendPath Sets path to call electron in production environment
 func FrontendPath() (string, string, string) {
 	fmt.Println("prod")
 
