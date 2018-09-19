@@ -9,7 +9,7 @@
   },
   "author": "equanox",
   "scripts": {
-    "build:go": "go build",
+    "go": "go build && gotron",
     "install": "npm run install:app && npm run install:ui:js && npm run install:ui:react && npm run install:ui:typescript && npm run install:ui:vue",
     "install:app": "cd app && npm install",
     "install:ui:js": "cd ui/js && npm install",
