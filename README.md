@@ -17,7 +17,7 @@ Use npm install script and start the application
 cd gotron
 npm run install
 npm run build
-go run main.go
+npm run go
 ```
 Now you should see this
 
@@ -57,11 +57,40 @@ For the vueJS frontend use
 
 then type
 
-    go run main.go
+    npm run go
 
 to bring up go backend and electron frontend.
 
 Reload updated index.js using 'r' key.
+
+## Distribution/Packaging
+
+Build the required frontend first.
+
+For windows distribution type
+
+    npm run dist:win
+
+For linux distribution type
+
+    npm run dist:linux
+
+For mac distribution type
+
+    npm run dist:mac
+
+Distributables will be created in ./dist/\<OS\>-unpacked/
+
+Execute 
+
+    ./gotron
+
+or (windows)
+
+    gotron.exe
+
+to run the application.
+
 # License
 MIT  
 
