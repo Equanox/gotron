@@ -33,7 +33,8 @@ Now you should see this
 - [x] Vue.js example
 - [ ] Communication between go and electron renderer process
 - <del>[ ] Electron appearance on OS</del>
-- [ ] Create executables for Win, MacOS, Linux
+- [X] Create executables for Win, Linux
+- [ ] Create executables for MacOS
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow

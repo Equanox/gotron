@@ -17,7 +17,7 @@
     "install:ui:typescript": "cd ui/typescript && npm install",
     "install:ui:vue": "cd ui/vue && npm install",
     "postinstall": "go get -d ./...",
-    "clean": "cleandist && del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
+    "clean": "npm run cleandist && del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
     "cleandist": "del-cli -f dist",
     "build": "npm run build:js",
     "build:js": "cd ui/js && npm run build",
