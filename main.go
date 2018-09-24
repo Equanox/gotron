@@ -120,15 +120,17 @@ func main() {
 	http.HandleFunc("/ui", socket)    //Endpoint for Electron startup/teardown
 	go http.ListenAndServe(addr, nil) //Start websockets in goroutine
 
+	//Conditional compilatiion for dev and prod
+	path, exe, args := FrontendPath()
+
 	// check if app/node_modules/electron/dist/electron available
 	//	    and warn or panic.
-	var electronPath = "app/node_modules/electron/dist"
-	if _, err := os.Stat(electronPath); os.IsNotExist(err) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
 		panic("Electron is not available in app folder.\n Please run \"npm install\".")
 	}
 
 	log.Printf("Starting Electron...")
-	cmd := exec.Command(electronPath+"/electron", "app")
+	cmd := exec.Command(path+exe, args)
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)

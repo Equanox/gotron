@@ -17,7 +17,8 @@ Use npm install script and start the application
 cd gotron
 npm run install
 npm run build
-go run main.go
+go build
+./gotron
 ```
 Now you should see this
 
@@ -32,7 +33,8 @@ Now you should see this
 - [x] Vue.js example
 - [ ] Communication between go and electron renderer process
 - <del>[ ] Electron appearance on OS</del>
-- [ ] Create executables for Win, MacOS, Linux
+- [X] Create executables for Win, Linux
+- [ ] Create executables for MacOS
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
@@ -57,11 +59,59 @@ For the vueJS frontend use
 
 then type
 
-    go run main.go
+    go build
+
+to create an executable gotron or gorton.exe (windows).
+
+Type
+
+    ./gotron
 
 to bring up go backend and electron frontend.
 
 Reload updated index.js using 'r' key.
+
+## Distribution/Packaging
+
+Build the required frontend first.
+
+For windows distribution type
+
+    npm run dist:win
+
+For linux distribution type
+
+    npm run dist:linux
+
+For mac distribution type
+
+    npm run dist:mac
+
+Distributables will be created in ./dist/\<OS\>-unpacked/
+
+Execute 
+
+    ./gotron
+
+or (windows)
+
+    gotron.exe
+
+to run the application.
+
+### Cross Platfrom Compilation
+
+Cross Platform Compilation is supported for following cases.
+
+- Linux:
+    - Linux
+    - Windows (Wine version 1.8 or later is required)
+    - Mac (Compiles but not tested)
+- Windows:
+    - Windows
+    - Linux
+- Mac: (No tests for compilation on mac have been performed)
+
 # License
 MIT  
 
