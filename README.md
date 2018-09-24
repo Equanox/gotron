@@ -17,7 +17,8 @@ Use npm install script and start the application
 cd gotron
 npm run install
 npm run build
-npm run go
+go build
+./gotron
 ```
 Now you should see this
 
@@ -57,7 +58,13 @@ For the vueJS frontend use
 
 then type
 
-    npm run go
+    go build
+
+to create an executable gotron or gorton.exe (windows).
+
+Type
+
+    ./gotron
 
 to bring up go backend and electron frontend.
 
@@ -90,6 +97,19 @@ or (windows)
     gotron.exe
 
 to run the application.
+
+### Cross Platfrom Compilation
+
+Cross Platform Compilation is supported for following cases.
+
+- Linux:
+    - Linux
+    - Windows (Wine version 1.8 or later is required)
+    - Mac (Compiles but not tested)
+- Windows:
+    - Windows
+    - Linux
+- Mac: (No tests for compilation on mac have been performed)
 
 # License
 MIT  

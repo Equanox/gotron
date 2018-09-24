@@ -17,7 +17,8 @@
     "install:ui:typescript": "cd ui/typescript && npm install",
     "install:ui:vue": "cd ui/vue && npm install",
     "postinstall": "go get -d ./...",
-    "clean": "del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
+    "clean": "cleandist && del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
+    "cleandist": "del-cli -f dist",
     "build": "npm run build:js",
     "build:js": "cd ui/js && npm run build",
     "postbuild:js": "cpy ui/js/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo \"Build Ui {ui/js}, cp bundle.js to app/assets/js/index.js\"",
@@ -33,21 +34,18 @@
     "dist:linux": "build -l && cross-env-shell GOOS=linux GOARCH=amd64 go build -tags prod",
     "postdist:linux": "move-cli gotron dist/linux-unpacked/gotron",
     "dist:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
-    "postdist:mac": "move-cli gotron dist/mac-unpacked/gotron"
+    "postdist:mac": "move-cli gotron dist/mac/gotron"
   },
   "build": {
     "appId": "equanox.gotron",
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
+      "target": "dir"
     },
     "linux": {
       "target": "dir"
     },
     "mac": {
-      "target": "pkg"
+      "target": "dir"
     }
   },
   "dependencies": {},
