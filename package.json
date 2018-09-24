@@ -28,7 +28,7 @@
     "build:vue": "cd ui/vue && npm run build",
     "postbuild:vue": "cpy ui/vue/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js",
     "dist": "dist:win && dist:linux && dist:mac",
-    "dist:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod",
+    "dist:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod -ldflags -H=windowsgui",
     "postdist:win": "move-cli gotron.exe dist/win-unpacked/gotron.exe",
     "dist:linux": "build -l && cross-env-shell GOOS=linux GOARCH=amd64 go build -tags prod",
     "postdist:linux": "move-cli gotron dist/linux-unpacked/gotron",
