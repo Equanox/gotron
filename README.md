@@ -4,10 +4,6 @@ A boilerplate for cross-platform desktop applications using Golang and Electron.
 ## Run
 **go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
 
-Install Electron globally
-
-    npm install -g electron
-
 Clone to your go workspace (e.g. go/src)
 
     git clone https://github.com/equanox/gotron
@@ -41,31 +37,29 @@ Now you should see this
 Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js), [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react),
 [ui/typescript-react](https://github.com/Equanox/gotron/tree/master/ui/typescript) or [ui/vue](https://github.com/Equanox/gotron/tree/master/ui/vue) for details.
 
-For plain Javascript use
+For plain javascript (default) use
 
     npm run build  
 
-For the react frontend use
+For other frontend use
 
-    npm run build:react
+    npm run build:${frontend}
 
-For the typescript-react frontend use
+where ${frontend} is one out of (js|react|typescript|vue).
 
-    npm run build:typescript
-
-For the vueJS frontend use
-
-    npm run build:vue    
-
-then type
+Then type
 
     go build
 
-to create an executable gotron or gorton.exe (windows).
+to create an executable gotron or gotron.exe (windows).
 
 Type
 
     ./gotron
+    
+or
+
+    gotron.exe
 
 to bring up go backend and electron frontend.
 
@@ -75,42 +69,31 @@ Reload updated index.js using 'r' key.
 
 Build the required frontend first.
 
-For windows distribution type
+The electron application will be built with **electron-builder**.
+For more information about build configuration visit [electron.build](https://www.electron.build/)
 
-    npm run dist:win
+For required distribution type
 
-For linux distribution type
+    npm run pack:${os}
 
-    npm run dist:linux
+where ${os} is one out of (linux|mac|win).
 
-For mac distribution type
+Apllication will be created in ./dist/${os}/ with an executable named **gotron** inside this directory.
 
-    npm run dist:mac
-
-Distributables will be created in ./dist/\<OS\>-unpacked/
-
-Execute 
-
-    ./gotron
-
-or (windows)
-
-    gotron.exe
-
-to run the application.
+Run this executable to start the application.
 
 ### Cross Platfrom Compilation
 
 Cross Platform Compilation is supported for following cases.
 
-- Linux:
+- Linux to:
     - Linux
     - Windows (Wine version 1.8 or later is required)
     - Mac (Compiles but not tested)
-- Windows:
+- Windows to:
     - Windows
     - Linux
-- Mac: (No tests for compilation on mac have been performed)
+- Mac to: (No tests for compilation on mac have been performed)
 
 # License
 MIT  
