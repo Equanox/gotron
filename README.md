@@ -71,19 +71,13 @@ Reload updated index.js using 'r' key.
 
 Build the required frontend first.
 
-For windows distribution type
+For required distribution type
 
-    npm run pack:win
+    npm run pack:${os}
 
-For linux distribution type
+where ${os} is one out of (linux|mac|win).
 
-    npm run pack:linux
-
-For mac distribution type
-
-    npm run pack:mac
-
-Distributables will be created in ./dist/(linux|mac|win)/
+Distributables will be created in ./dist/${os}/
 
 Execute 
 
