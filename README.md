@@ -69,13 +69,16 @@ Reload updated index.js using 'r' key.
 
 Build the required frontend first.
 
+The electron application will be built with **electron-builder**.
+For more information about build configuration visit [electron.build](https://www.electron.build/)
+
 For required distribution type
 
     npm run pack:${os}
 
 where ${os} is one out of (linux|mac|win).
 
-Distributables will be created in ./dist/${os}/
+Apllication will be created in ./dist/${os}/
 
 Execute 
 
