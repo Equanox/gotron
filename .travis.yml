@@ -1,6 +1,8 @@
 language: node_js
 node_js: 
   - "node"
+go:
+  - "1.10.x"
 install: 
   - npm install
 script:
