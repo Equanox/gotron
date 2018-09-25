@@ -5,3 +5,7 @@ install:
   - npm install
 script:
   - npm run build
+  - npm run build:react
+  - npm run build:typescript
+  - npm run build:vue
+  
