@@ -18,5 +18,5 @@ func FrontendPath() (string, string, string) {
 	}
 	exPath := filepath.Dir(ex)
 
-	return exPath + "/", "electron-rampup", ""
+	return exPath + "/electron/", "electron-rampup", ""
 }

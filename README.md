@@ -4,10 +4,6 @@ A boilerplate for cross-platform desktop applications using Golang and Electron.
 ## Run
 **go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
 
-Install Electron globally
-
-    npm install -g electron
-
 Clone to your go workspace (e.g. go/src)
 
     git clone https://github.com/equanox/gotron
@@ -17,7 +13,8 @@ Use npm install script and start the application
 cd gotron
 npm run install
 npm run build
-npm run go
+go build
+./gotron
 ```
 Now you should see this
 
@@ -32,7 +29,8 @@ Now you should see this
 - [x] Vue.js example
 - [ ] Communication between go and electron renderer process
 - <del>[ ] Electron appearance on OS</del>
-- [ ] Create executables for Win, MacOS, Linux
+- [X] Create executables for Win, Linux
+- [ ] Create executables for MacOS
 - [ ] Config for go-nodejs socket
 
 ## Frontend Development Workflow
@@ -57,7 +55,13 @@ For the vueJS frontend use
 
 then type
 
-    npm run go
+    go build
+
+to create an executable gotron or gorton.exe (windows).
+
+Type
+
+    ./gotron
 
 to bring up go backend and electron frontend.
 
@@ -69,17 +73,17 @@ Build the required frontend first.
 
 For windows distribution type
 
-    npm run dist:win
+    npm run pack:win
 
 For linux distribution type
 
-    npm run dist:linux
+    npm run pack:linux
 
 For mac distribution type
 
-    npm run dist:mac
+    npm run pack:mac
 
-Distributables will be created in ./dist/\<OS\>-unpacked/
+Distributables will be created in ./dist/(linux|mac|win)/
 
 Execute 
 
@@ -90,6 +94,19 @@ or (windows)
     gotron.exe
 
 to run the application.
+
+### Cross Platfrom Compilation
+
+Cross Platform Compilation is supported for following cases.
+
+- Linux:
+    - Linux
+    - Windows (Wine version 1.8 or later is required)
+    - Mac (Compiles but not tested)
+- Windows:
+    - Windows
+    - Linux
+- Mac: (No tests for compilation on mac have been performed)
 
 # License
 MIT  

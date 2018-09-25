@@ -17,7 +17,8 @@
     "install:ui:typescript": "cd ui/typescript && npm install",
     "install:ui:vue": "cd ui/vue && npm install",
     "postinstall": "go get -d ./...",
-    "clean": "del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
+    "clean": "npm run cleandist && del-cli -f app/node_modules && del-cli -f ui/js/node_modules && del-cli -f ui/react/node_modules && del-cli -f ui/typescript/node_modules && del-cli -f ui/vue/node_modules && del-cli -f node_modules || exit 0",
+    "cleandist": "del-cli -f dist",
     "build": "npm run build:js",
     "build:js": "cd ui/js && npm run build",
     "postbuild:js": "cpy ui/js/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo \"Build Ui {ui/js}, cp bundle.js to app/assets/js/index.js\"",
@@ -27,27 +28,27 @@
     "postbuild:typescript": "cpy ui/typescript/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/typescript}, cp bundle.js to app/assets/js/index.js",
     "build:vue": "cd ui/vue && npm run build",
     "postbuild:vue": "cpy ui/vue/build/*.* app/assets/ && move-cli app/assets/bundle.js app/assets/js/index.js && echo Build Ui {ui/vue}, cp bundle.js to app/assets/js/index.js",
-    "dist": "dist:win && dist:linux && dist:mac",
-    "dist:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod -ldflags -H=windowsgui",
-    "postdist:win": "move-cli gotron.exe dist/win-unpacked/gotron.exe",
-    "dist:linux": "build -l && cross-env-shell GOOS=linux GOARCH=amd64 go build -tags prod",
-    "postdist:linux": "move-cli gotron dist/linux-unpacked/gotron",
-    "dist:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
-    "postdist:mac": "move-cli gotron dist/mac-unpacked/gotron"
+    "pack": "pack:win && pack:linux && pack:mac",
+    "prepack:win": "del-cli -f dist/win",
+    "pack:win": "build -w && cross-env-shell GOOS=windows GOARCH=amd64 go build -tags prod -ldflags -H=windowsgui",
+    "postpack:win": "move-cli --mkdirp dist/win-unpacked/ dist/win/electron/ && move-cli gotron.exe dist/win/gotron.exe",
+    "prepack:linux": "del-cli -f dist/linux",
+    "pack:linux": "build -l && cross-env-shell GOOS=linux GOARCH=amd64 go build -tags prod",
+    "postpack:linux": "move-cli --mkdirp dist/linux-unpacked/ dist/linux/electron/ && move-cli gotron dist/linux/gotron",
+    "prepack:mac": "del-cli -f dist/mac",
+    "pack:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
+    "postpack:mac": "move-cli gotron dist/mac/gotron"
   },
   "build": {
     "appId": "equanox.gotron",
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
+      "target": "dir"
     },
     "linux": {
       "target": "dir"
     },
     "mac": {
-      "target": "pkg"
+      "target": "dir"
     }
   },
   "dependencies": {},
@@ -56,7 +57,7 @@
     "cpy-cli": "^2.0.0",
     "cross-env": "^5.2.0",
     "del-cli": "^1.1.0",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "latest",
     "move-cli": "^1.2.0"
   }
 }
