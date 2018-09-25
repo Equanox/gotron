@@ -37,31 +37,29 @@ Now you should see this
 Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js), [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react),
 [ui/typescript-react](https://github.com/Equanox/gotron/tree/master/ui/typescript) or [ui/vue](https://github.com/Equanox/gotron/tree/master/ui/vue) for details.
 
-For plain Javascript use
+For plain javascript (default) use
 
     npm run build  
 
-For the react frontend use
+For other frontend use
 
-    npm run build:react
+    npm run build:${frontend}
 
-For the typescript-react frontend use
+where ${frontend} is one out of (js|react|typescript|vue).
 
-    npm run build:typescript
-
-For the vueJS frontend use
-
-    npm run build:vue    
-
-then type
+Then type
 
     go build
 
-to create an executable gotron or gorton.exe (windows).
+to create an executable gotron or gotron.exe (windows).
 
 Type
 
     ./gotron
+    
+or
+
+    gotron.exe
 
 to bring up go backend and electron frontend.
 
@@ -93,14 +91,14 @@ to run the application.
 
 Cross Platform Compilation is supported for following cases.
 
-- Linux:
+- Linux to:
     - Linux
     - Windows (Wine version 1.8 or later is required)
     - Mac (Compiles but not tested)
-- Windows:
+- Windows to:
     - Windows
     - Linux
-- Mac: (No tests for compilation on mac have been performed)
+- Mac to: (No tests for compilation on mac have been performed)
 
 # License
 MIT  
