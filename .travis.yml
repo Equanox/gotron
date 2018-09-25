@@ -1,13 +1,12 @@
 language: go
 go:
   - "1.10.x"
-before_install:
-  - nvm install node
+
+sudo: enabled
+
 install: 
-  - npm install
+  - nvm install node
+  - sudo apt-get install wine 
+  
 script:
-  - npm run build
-  - npm run build:react
-  - npm run build:typescript
-  - npm run build:vue
-  - npm run pack:linux
+  - npm run test
