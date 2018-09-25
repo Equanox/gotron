@@ -1,4 +1,4 @@
-language: node_js
+language: node_js go
 node_js: 
   - "node"
 go:
