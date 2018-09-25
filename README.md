@@ -4,10 +4,6 @@ A boilerplate for cross-platform desktop applications using Golang and Electron.
 ## Run
 **go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
 
-Install Electron globally
-
-    npm install -g electron
-
 Clone to your go workspace (e.g. go/src)
 
     git clone https://github.com/equanox/gotron
@@ -77,17 +73,17 @@ Build the required frontend first.
 
 For windows distribution type
 
-    npm run dist:win
+    npm run pack:win
 
 For linux distribution type
 
-    npm run dist:linux
+    npm run pack:linux
 
 For mac distribution type
 
-    npm run dist:mac
+    npm run pack:mac
 
-Distributables will be created in ./dist/\<OS\>-unpacked/
+Distributables will be created in ./dist/(linux|mac|win)/
 
 Execute 
 
