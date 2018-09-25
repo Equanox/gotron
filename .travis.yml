@@ -6,7 +6,13 @@ sudo: enabled
 
 install: 
   - nvm install node
-  - sudo apt-get install wine 
-  
+  - sudo dpkg --add-architecture i386
+  - wget -nc https://dl.winehq.org/wine-builds/Release.key
+  - sudo apt-key add Release.key
+  - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ trusty main'
+  - sudo apt-get update
+  - sudo apt-get install --install-recommends winehq-stable
+
+
 script:
   - npm run test
