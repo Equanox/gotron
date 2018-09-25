@@ -78,17 +78,9 @@ For required distribution type
 
 where ${os} is one out of (linux|mac|win).
 
-Apllication will be created in ./dist/${os}/
+Apllication will be created in ./dist/${os}/ with an executable named **gotron** inside this directory.
 
-Execute 
-
-    ./gotron
-
-or (windows)
-
-    gotron.exe
-
-to run the application.
+Run this executable to start the application.
 
 ### Cross Platfrom Compilation
 
