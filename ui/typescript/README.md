@@ -9,9 +9,10 @@ Open *src/app.tsx* and replace line 10 with
 
 In Gotron **root** dir type
 
-    npm run build-typescript
-    go run main.go
+    npm run build:typescript
+    go build
+    ./gotron
 
-**Hint:** On the first build it is necessary to run `npm run build-typescript` two times because of the style-loader.
+**Hint:** On the first build it is necessary that typescript/webpack will be executed two times because of the style-loader.
 
 Reload updated index.js using 'r' key.
