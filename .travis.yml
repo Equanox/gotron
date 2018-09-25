@@ -8,4 +8,4 @@ script:
   - npm run build:react
   - npm run build:typescript
   - npm run build:vue
-  
+  - npm run pack:linux
