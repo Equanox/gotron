@@ -6,7 +6,8 @@ Open *src/app.js* and replace line 10 with
 
 In Gotron **root** dir type
 
-    npm run build-react
-    go run main.go
+    npm run build:react
+    go build
+    ./gotron
 
 Reload updated index.js using 'r' key.
