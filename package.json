@@ -37,7 +37,8 @@
     "postpack:linux": "move-cli --mkdirp dist/linux-unpacked/ dist/linux/electron/ && move-cli gotron dist/linux/gotron",
     "prepack:mac": "del-cli -f dist/mac",
     "pack:mac": "build -m && cross-env-shell GOOS=darwin GOARCH=amd64 go build -tags prod",
-    "postpack:mac": "move-cli gotron dist/mac/gotron"
+    "postpack:mac": "move-cli gotron dist/mac/gotron",
+    "test": "npm run clean && npm install && npm run build && npm run build:react && npm run build:typescript && npm run build:vue && npm run pack:linux && npm run pack:win && npm run pack:mac"
   },
   "build": {
     "appId": "equanox.gotron",
