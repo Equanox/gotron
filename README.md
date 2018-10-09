@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Equanox/gotron.svg?branch=master)](https://travis-ci.com/Equanox/gotron)
+[![Build Status](https://travis-ci.org/Equanox/gotron.svg?branch=master)](https://travis-ci.org/Equanox/gotron)
 
 # Gotron
 A boilerplate for cross-platform desktop applications using Golang and Electron.
@@ -15,8 +15,7 @@ Use npm install script and start the application
 cd gotron
 npm run install
 npm run build
-go build
-./gotron
+go run .
 ```
 Now you should see this
 
@@ -51,17 +50,7 @@ where ${frontend} is one out of (js|react|typescript|vue).
 
 Then type
 
-    go build
-
-to create an executable gotron or gotron.exe (windows).
-
-Type
-
-    ./gotron
-    
-or
-
-    gotron.exe
+    go run .
 
 to bring up go backend and electron frontend.
 
