@@ -11,7 +11,7 @@
   "scripts": {
     "gotron": "go run .",
     "install": "npm run install:app && npm run install:ui:js && npm run install:ui:react && npm run install:ui:typescript && npm run install:ui:vue",
-    "install:app": "cd app && npm install",
+    "install:app": "cd app && npm install && npm run rebuild",
     "install:ui:js": "cd ui/js && npm install",
     "install:ui:react": "cd ui/react && npm install",
     "install:ui:typescript": "cd ui/typescript && npm install",

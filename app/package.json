@@ -6,6 +6,14 @@
     "websocket": "latest"
   },
   "devDependencies": {
-    "electron": "latest"
+    "electron": "latest",
+    "electron-rebuild": "^1.8.2",
+    "run-script-os": "^1.0.3"
+  },
+  "scripts": {
+    "rebuild": "run-script-os",
+    "rebuild:linux": "./node_modules/.bin/electron-rebuild",
+    "rebuild:darwin": "./node_modules/.bin/electron-rebuild.app",
+    "rebuild:win32": "./node_modules/.bin/electron-rebuild.cmd"
   }
 }

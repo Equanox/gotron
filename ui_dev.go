@@ -2,10 +2,16 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 // FrontendPath Sets path to call electron in development environment
 func FrontendPath() (string, string, string) {
 	fmt.Println("!prod")
+	if runtime.GOOS == "darwin" {
+		return "./app/node_modules/electron/dist/", "electron.app", "app"
+	}
 	return "./app/node_modules/electron/dist/", "electron", "app"
 }
