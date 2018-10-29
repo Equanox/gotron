@@ -11,7 +11,7 @@ import (
 func FrontendPath() (string, string, string) {
 	fmt.Println("!prod")
 	if runtime.GOOS == "darwin" {
-		return "./app/node_modules/electron/dist/", "electron.app", "app"
+		return "./app/node_modules/electron/dist/", "Electron.app", "app"
 	}
 	return "./app/node_modules/electron/dist/", "electron", "app"
 }
