@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"runtime"
 
 	"github.com/fatih/color"
 	"github.com/gorilla/websocket"
@@ -130,7 +131,14 @@ func main() {
 	}
 
 	log.Printf("Starting Electron...")
-	cmd := exec.Command(path+exe, args)
+	var cmd *exec.Cmd
+	switch runtime.GOOS {
+	case "darwin":
+		cmd = exec.Command("open", path+exe, "--args", args)
+	default:
+		cmd = exec.Command(path+exe, args)
+	}
+
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)

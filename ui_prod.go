@@ -9,8 +9,8 @@ import (
 )
 
 // FrontendPath Sets path to call electron in production environment
-func FrontendPath() (string, string, string) {
-	fmt.Println("prod")
+func FrontendPath() (dir string, exe string, args string) {
+	fmt.Println("production mode")
 
 	ex, err := os.Executable()
 	if err != nil {
