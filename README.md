@@ -3,6 +3,8 @@
 # Gotron
 A boilerplate for cross-platform desktop applications using Golang and Electron.
 
+**Hint:** We moved from godep to [go 1.11 modules](https://github.com/golang/go/wiki/Modules)
+
 ## Run
 **go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
 
