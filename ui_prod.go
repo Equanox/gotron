@@ -9,7 +9,7 @@ import (
 )
 
 // FrontendPath Sets path to call electron in production environment
-func FrontendPath() (dir string, exe string, args string) {
+func FrontendPath() (dir string, exe string, args string, err error) {
 	fmt.Println("production mode")
 
 	ex, err := os.Executable()
@@ -18,5 +18,5 @@ func FrontendPath() (dir string, exe string, args string) {
 	}
 	exPath := filepath.Dir(ex)
 
-	return exPath + "/electron/", "electron-rampup", ""
+	return exPath + "/electron/", "electron-rampup", "", nil
 }

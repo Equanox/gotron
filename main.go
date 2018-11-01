@@ -122,7 +122,10 @@ func main() {
 	go http.ListenAndServe(addr, nil) //Start websockets in goroutine
 
 	//Conditional compilatiion for dev and prod
-	path, exe, args := FrontendPath()
+	path, exe, args, err := FrontendPath()
+	if err != nil {
+		panic(err)
+	}
 
 	// check if app/node_modules/electron/dist/electron available
 	//	    and warn or panic.
@@ -139,7 +142,7 @@ func main() {
 		cmd = exec.Command(path+exe, args)
 	}
 
-	err := cmd.Start()
+	err = cmd.Start()
 	if err != nil {
 		log.Fatal(err)
 	}
