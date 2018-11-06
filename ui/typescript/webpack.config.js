@@ -41,7 +41,16 @@ var configuration = {
     rules: [
       {
         test: /\.css$/,
-        use: ['typings-for-css-modules-loader?modules&namedExport&camelCase'],
+        use: [
+          'style-loader',
+          {
+            loader: 'typings-for-css-modules-loader',
+            options: {
+              modules: true,
+              namedExport: true
+            }
+          }
+        ],
         exclude: /node_modules/,
       },
       {
