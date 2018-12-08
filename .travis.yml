@@ -1,6 +1,6 @@
 language: go
 go:
-  - "1.10.x"
+  - "1.11.x"
 
 sudo: enabled
 
@@ -15,4 +15,6 @@ install:
 
 
 script:
-  - npm run test
+  - cd ui && npm run test
+  - go build
+  - ./gotron
