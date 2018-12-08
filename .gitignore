@@ -6,4 +6,7 @@ dist/
 vendor/
 .vscode/
 
+app/
+gotron.exe
+
 *.d.ts
