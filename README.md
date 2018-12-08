@@ -6,7 +6,7 @@ A boilerplate for cross-platform desktop applications using Golang and Electron.
 **Hint:** We moved from godep to [go 1.11 modules](https://github.com/golang/go/wiki/Modules)
 
 ## Run
-**go**, **nodejs** and **npm (v2.0 or later)** should be available on your system.  
+**go**, **nodejs** and **npm** should be available on your system.  
 
 Clone to your go workspace (e.g. go/src)
 
@@ -15,8 +15,7 @@ Clone to your go workspace (e.g. go/src)
 Use npm install script and start the application
 ```
 cd gotron
-npm run install
-npm run build
+cd ui && npm install && npm run build
 go run .
 ```
 Now you should see this
@@ -35,6 +34,7 @@ Now you should see this
 - [X] Create executables for Win, Linux
 - [ ] Create executables for MacOS
 - [ ] Config for go-nodejs socket
+- [X] Hide all nodejs/electron behind go api
 
 ## Frontend Development Workflow
 Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js), [ui/react](https://github.com/Equanox/gotron/tree/master/ui/react),
@@ -42,11 +42,11 @@ Take a look into [ui/js](https://github.com/Equanox/gotron/tree/master/ui/js), [
 
 For plain javascript (default) use
 
-    npm run build  
+    cd ui && npm run build  
 
 For other frontend use
 
-    npm run build:${frontend}
+    cd ui && npm run build:${frontend}
 
 where ${frontend} is one out of (js|react|typescript|vue).
 
@@ -60,33 +60,7 @@ Reload updated index.js using 'r' key.
 
 ## Distribution/Packaging
 
-Build the required frontend first.
-
-The electron application will be built with **electron-builder**.
-For more information about build configuration visit [electron.build](https://www.electron.build/)
-
-For required distribution type
-
-    npm run pack:${os}
-
-where ${os} is one out of (linux|mac|win).
-
-Apllication will be created in ./dist/${os}/ with an executable named **gotron** inside this directory.
-
-Run this executable to start the application.
-
-### Cross Platfrom Compilation
-
-Cross Platform Compilation is supported for following cases.
-
-- Linux to:
-    - Linux
-    - Windows (Wine version 1.8 or later is required)
-    - Mac (Compiles but not tested)
-- Windows to:
-    - Windows
-    - Linux
-- Mac to: (No tests for compilation on mac have been performed)
+Since all of electron and nodejs is now behind gotron-browser-window api Packaging is disabled for the time being.
 
 # License
 MIT  
