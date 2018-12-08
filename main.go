@@ -1,40 +1,56 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
 	"os"
-	"os/exec"
+	
+	gotron "github.com/Benchkram/gotron-browser-window"
 
-	"github.com/fatih/color"
-	"github.com/gorilla/websocket"
 	"github.com/spf13/viper"
+	"github.com/fatih/color"
+
+	"github.com/Benchkram/errz"
+
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
-//SocketEvent event
-type SocketEvent struct {
-	Event string
-	Data  interface{}
+
+//Globals
+var mainLogger zerolog.Logger// = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
+func main() {
+
+	//Logging
+	mainLogger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
+	subLogger := mainLogger.With().Caller().Logger()
+
+	//Register Logger in libraries
+	gotron.UseLogger(subLogger)
+	errz.UseZeroLog(subLogger)
+
+	config := loadConfig()
+
+	window, err := gotron.New(config.name, config.pathToIndexjs, config.pathToCSS, config.appFolder)
+	errz.Log(err)
+
+	window.WindowOptions.Width = 1200
+	window.WindowOptions.Height = 600
+
+	done, err := window.Start()
+	errz.Log(err)
+
+	window.OpenDevTools()
+
+	<-done
 }
 
 //Backend Configuration returned by loadConfig
 type configuration struct {
 	name   string //Application Name
-	server string
-	port   string
-}
-
-//Globals
-var done = make(chan bool, 1)      //Wait for Shutdown signal over websocket
-var upgrader = websocket.Upgrader{ //Upgrader for websockets
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	Subprotocols:    []string{"p0", "p1"},
-	CheckOrigin: func(r *http.Request) bool {
-		return true
-	},
+	pathToIndexjs string //Application Frontend 
+	pathToCSS string //Application Frontend Styling
+	appFolder string //Application Frontend Path
 }
 
 // Loads configuration from file
@@ -43,105 +59,37 @@ func loadConfig() configuration {
 	viper.SetConfigName("config")
 
 	// Paths to search for a config file
-	viper.AddConfigPath(".")
+	viper.AddConfigPath("./")
+	viper.SetConfigType("toml")
 
 	err := viper.ReadInConfig()
 	if err != nil {
 		color.Set(color.FgRed)
-		fmt.Println("No configuration file loaded - using defaults")
+		mainLogger.Warn().Msg("No configuration file loaded - using defaults")
 		color.Unset()
-	}
 
-	// default values
-	viper.SetDefault("name", "")
-	viper.SetDefault("server", "localhost")
-	viper.SetDefault("port", "9109")
+		// default values
+		viper.SetDefault("name", "")
+		viper.SetDefault("pathToIndexjs", "ui/react/build/bundle.js")
+		viper.SetDefault("pathToCSS", "ui/react/src/style.css")
+		viper.SetDefault("appFolder", "gotron/")
+	}
 
 	// Write all params to stdout
 	color.Set(color.FgGreen)
-	fmt.Println("Loaded Configuration:")
+	mainLogger.Info().Msg("Loaded Configuration:")
 	color.Unset()
 
 	// Print config
 	keys := viper.AllKeys()
 	for i := range keys {
 		key := keys[i]
-		fmt.Println(key + ":" + viper.GetString(key))
+		mainLogger.Info().Msg(key + ":" + viper.GetString(key))
 	}
-	fmt.Println("---")
 
 	return configuration{
 		name:   viper.GetString("name"),
-		server: viper.GetString("server"),
-		port:   viper.GetString("port")}
-}
-
-//Handles msgs to communicate with nodejs electron for rampup & shutdown
-func socket(w http.ResponseWriter, r *http.Request) {
-	c, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Print("upgrade:", err)
-		return
-	}
-	defer c.Close()
-
-	for {
-		var event SocketEvent
-		_, message, err := c.ReadMessage()
-		if err != nil {
-			log.Println("ElectronSocket: [err]", err)
-			break
-		}
-
-		//Handle Message
-		err = json.Unmarshal(message, &event)
-		if err != nil {
-			log.Println("Unmashal: ", err)
-			break
-		}
-		log.Printf("ElectronSocket: [received] %+v", event)
-
-		//Shutdown Event
-		if event.Event == "shutdown" {
-			switch t := event.Data.(type) {
-			case bool:
-				if t {
-					done <- true
-				}
-			}
-		}
-	}
-}
-
-func main() {
-	config := loadConfig()
-
-	var addr = config.server + ":" + config.port
-	http.HandleFunc("/ui", socket)    //Endpoint for Electron startup/teardown
-	go http.ListenAndServe(addr, nil) //Start websockets in goroutine
-
-	//Conditional compilatiion for dev and prod
-	path, exe, args := FrontendPath()
-
-	// check if app/node_modules/electron/dist/electron available
-	//	    and warn or panic.
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		panic("Electron is not available in app folder.\n Please run \"npm install\".")
-	}
-
-	log.Printf("Starting Electron...")
-	cmd := exec.Command(path+exe, args)
-	err := cmd.Start()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	color.Set(color.FgGreen)
-	log.Printf("%s succesfully started", config.name)
-	color.Unset()
-
-	<-done //Wait for shutdown signal
-	color.Set(color.FgGreen)
-	log.Printf("Shutting down...")
-	color.Unset()
+		pathToIndexjs: viper.GetString("pathToIndexjs"),
+		pathToCSS: viper.GetString("pathToCSS"),
+		appFolder:   viper.GetString("appFolder")}
 }
