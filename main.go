@@ -2,11 +2,11 @@ package main
 
 import (
 	"os"
-	
+
 	gotron "github.com/Benchkram/gotron-browser-window"
 
-	"github.com/spf13/viper"
 	"github.com/fatih/color"
+	"github.com/spf13/viper"
 
 	"github.com/Benchkram/errz"
 
@@ -14,9 +14,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-
 //Globals
-var mainLogger zerolog.Logger// = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+var mainLogger zerolog.Logger // = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 func main() {
 
@@ -47,10 +46,10 @@ func main() {
 
 //Backend Configuration returned by loadConfig
 type configuration struct {
-	name   string //Application Name
-	pathToIndexjs string //Application Frontend 
-	pathToCSS string //Application Frontend Styling
-	appFolder string //Application Frontend Path
+	name          string //Application Name
+	pathToIndexjs string //Application Frontend
+	pathToCSS     string //Application Frontend Styling
+	appFolder     string //Application Frontend Path
 }
 
 // Loads configuration from file
@@ -88,8 +87,8 @@ func loadConfig() configuration {
 	}
 
 	return configuration{
-		name:   viper.GetString("name"),
+		name:          viper.GetString("name"),
 		pathToIndexjs: viper.GetString("pathToIndexjs"),
-		pathToCSS: viper.GetString("pathToCSS"),
-		appFolder:   viper.GetString("appFolder")}
+		pathToCSS:     viper.GetString("pathToCSS"),
+		appFolder:     viper.GetString("appFolder")}
 }
