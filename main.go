@@ -30,7 +30,7 @@ func main() {
 
 	config := loadConfig()
 
-	window, err := gotron.New(config.name, config.pathToIndexjs, config.pathToCSS, config.appFolder)
+	window, err := gotron.New(config.name, config.pathsToJSFiles, config.pathsToCSSFiles, config.appFolder)
 	errz.Log(err)
 
 	window.WindowOptions.Width = 1200
@@ -46,10 +46,10 @@ func main() {
 
 //Backend Configuration returned by loadConfig
 type configuration struct {
-	name          string //Application Name
-	pathToIndexjs string //Application Frontend
-	pathToCSS     string //Application Frontend Styling
-	appFolder     string //Application Frontend Path
+	name          		string //Application Name
+	pathsToJSFiles 		[]string //Application Frontend
+	pathsToCSSFiles     []string //Application Frontend Styling
+	appFolder     		string //Application Frontend Path
 }
 
 // Loads configuration from file
@@ -69,26 +69,14 @@ func loadConfig() configuration {
 
 		// default values
 		viper.SetDefault("name", "")
-		viper.SetDefault("pathToIndexjs", "ui/react/build/bundle.js")
-		viper.SetDefault("pathToCSS", "ui/react/src/style.css")
+		viper.SetDefault("pathsToJSFiles", []string{"ui/react/build/bundle.js"})
+		viper.SetDefault("pathsToCSSFiles", []string{})
 		viper.SetDefault("appFolder", "gotron/")
-	}
-
-	// Write all params to stdout
-	color.Set(color.FgGreen)
-	mainLogger.Info().Msg("Loaded Configuration:")
-	color.Unset()
-
-	// Print config
-	keys := viper.AllKeys()
-	for i := range keys {
-		key := keys[i]
-		mainLogger.Info().Msg(key + ":" + viper.GetString(key))
 	}
 
 	return configuration{
 		name:          viper.GetString("name"),
-		pathToIndexjs: viper.GetString("pathToIndexjs"),
-		pathToCSS:     viper.GetString("pathToCSS"),
+		pathsToJSFiles: viper.GetStringSlice("pathsToJSFiles"),
+		pathsToCSSFiles:     viper.GetStringSlice("pathsToCSSFiles"),
 		appFolder:     viper.GetString("appFolder")}
 }

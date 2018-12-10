@@ -1,5 +1,5 @@
 # Webserver configuration file
 name= "Gotron"
-pathToIndexjs = "ui/build/bundle.js"
-pathToCSS = ""
+pathsToJSFiles = [ "ui/build/bundle.js" ]
+pathsToCSSFiles = []
 appFolder = "app/"
