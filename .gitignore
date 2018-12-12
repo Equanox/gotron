@@ -9,4 +9,6 @@ vendor/
 app/
 gotron.exe
 
+
+
 *.d.ts
