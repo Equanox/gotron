@@ -5,13 +5,13 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 
 	"github.com/Benchkram/errz"
 
 	gotron "github.com/Benchkram/gotron-browser-window"
 )
 
+// Globals constants
 const (
 	tmpDir = ".gotron-builder"
 )
@@ -19,6 +19,12 @@ const (
 type App struct {
 	GoEntryPoint string
 	AppDir       string
+	BuildOS      string
+}
+
+type GoBuildOptions struct {
+	GoEnv        map[string]string
+	buildOptions map[string]string
 }
 
 func (app *App) Run() (err error) {
@@ -86,7 +92,7 @@ func (app *App) buildElectron() (err error) {
 
 	buildOS := "-l"
 
-	switch os := runtime.GOOS; os {
+	switch app.BuildOS {
 	case "windows":
 		buildOS = "-w"
 	case "linux":
@@ -113,7 +119,7 @@ func (app *App) buildGoCode() (err error) {
 
 	fName := filepath.Base(runDir)
 
-	if runtime.GOOS == "windows" {
+	if app.BuildOS == "windows" {
 		fName = fName + ".exe"
 	}
 
@@ -121,7 +127,7 @@ func (app *App) buildGoCode() (err error) {
 
 	buildOS := "linux"
 
-	switch os := runtime.GOOS; os {
+	switch app.BuildOS {
 	case "windows":
 		buildOS = "win"
 	case "linux":
