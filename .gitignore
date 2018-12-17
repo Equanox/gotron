@@ -9,8 +9,7 @@ vendor/
 
 app/
 .gotron/
+gotron
 gotron.exe
-
-
 
 *.d.ts
