@@ -3,9 +3,9 @@ UNAME := $(shell uname)
 EXEC = ./gotron
 
 #https://stackoverflow.com/questions/4058840/makefile-that-distincts-between-windows-and-unix-like-systems
-ifdef OS 
-	EXEC = gotron.exe
-endif
+# ifdef OS 
+# 	EXEC = gotron.exe
+# endif
 
 run:
 	@go build && $(EXEC)
