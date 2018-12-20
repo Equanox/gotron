@@ -1,24 +1,55 @@
 [![Build Status](https://travis-ci.org/Equanox/gotron.svg?branch=master)](https://travis-ci.org/Equanox/gotron)
 
 # Gotron
-A boilerplate for cross-platform desktop applications using Golang and Electron.
+A go api for electronjs.
 
-**Hint:** We moved from godep to [go 1.11 modules](https://github.com/golang/go/wiki/Modules)
+**IMPORTANT NOTICE:**     
+This repository has undergone a complete rewrite. It is no longer a boilerplate application, it rather is a full electronjs api in go containing a golang <=> nodejs bridge and a separate executable to help distribute your application, it's named `gotron-builder`. You can `go get` this package and import it by your go application. 
+You can still acces the old repo using the gotron-boilerplate branch. Be aware that it wont't be maintained.
+**IMPORTANT NOTICE:**
 
-## Run
+## Prerequisites
 **go**, **nodejs** and **npm** should be available on your system.  
 
-Clone to your go workspace (e.g. go/src)
-
-    git clone https://github.com/equanox/gotron
-
-Use npm install script and start the application
+## Quick start
 ```
-cd gotron
-cd ui && npm install && npm run build
-go run .
+package main
+
+import (
+	gotron "github.com/Equanox/gotron"
+)
+
+func main() {
+    // Create a new browser window instance
+    window, err := gotron.New()
+    if err != nil {
+        panic(err)
+    }
+
+    // Alter default window size and window title.
+    window.WindowOptions.Width = 1200
+    window.WindowOptions.Height = 980
+    window.WindowOptions.Title = "Gotron"
+
+    // Start the browser window.
+    // This will establish a golang <=> nodejs bridge using websockets,
+    // to control ElectronBrowserWindow with our window object.
+    done, err := window.Start()
+    if err != nil {
+        panic(err)
+    }
+    
+    // Open dev tools must be used after window.Start 
+    // window.OpenDevTools()
+    
+    // Wait for the application to close
+    <-done
+}
+
 ```
-Now you should see this
+
+Run 
+
 
 ![Hello Gotron](https://raw.githubusercontent.com/equanox/gotron/master/doc/hello_gotron.png)
 

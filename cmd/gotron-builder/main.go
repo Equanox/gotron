@@ -17,12 +17,12 @@ func init() {
 		"Go entrypoint, must point to a directory containing a main.go")
 	rootCmd.PersistentFlags().StringP("app", "a", ".gotron/assets/",
 		"Application directory, must point to a directory containing a webapp starting at index.html")
-		
+
 	rootCmd.PersistentFlags().StringP("out", "", ".",
 		"Application output directory. Build output will be put in dist/* inside this directory.")
 
 	// Electron-Builder parameters
-	
+
 	//Platforms
 
 	//Build for macOS
@@ -41,14 +41,11 @@ func init() {
 	rootCmd.PersistentFlags().BoolP("ia32", "", false, "Build for ia32")
 	rootCmd.PersistentFlags().BoolP("armv7l", "", false, "Build for armv7l")
 	rootCmd.PersistentFlags().BoolP("arm64", "", false, "Build for arm64")
-
-	//rootCmd.PersistentFlags().StringP("example-string", "", "", "description")
-	//rootCmd.PersistentFlags().IntP("example-int", "p", 1, "description")
-	//rootCmd.PersistentFlags().BoolP("example-bool", "", false, "description")
 }
 
 func Run(cmd *cobra.Command, args []string) {
 	zerolog.TimeFieldFormat = ""
+	log.Logger.Level(zerolog.ErrorLevel)
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr}).With().Caller().Logger()
 
 	app, err := parseFlags(cmd)
@@ -100,26 +97,25 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	w1, _ := strconv.ParseBool(cmd.Flag("windows").Value.String())
 	w2, _ := strconv.ParseBool(cmd.Flag("win").Value.String())
 	windows := w1 || w2
-	
+
 	// Architectures
 	arch := make(map[string]bool)
-	arch["x64"], _ = strconv.ParseBool(cmd.Flag("x64").Value.String())			//GOARCH=amd64
-	arch["ia32"], _ = strconv.ParseBool(cmd.Flag("ia32").Value.String())		//GOARCH=386
-	arch["armv7l"], _ = strconv.ParseBool(cmd.Flag("armv7l").Value.String())	//GOARCH=arm GOARM=7
-	arch["arm64"], _ = strconv.ParseBool(cmd.Flag("arm64").Value.String())		//GOARCH=arm64
+	arch["x64"], _ = strconv.ParseBool(cmd.Flag("x64").Value.String())       //GOARCH=amd64
+	arch["ia32"], _ = strconv.ParseBool(cmd.Flag("ia32").Value.String())     //GOARCH=386
+	arch["armv7l"], _ = strconv.ParseBool(cmd.Flag("armv7l").Value.String()) //GOARCH=arm GOARM=7
+	arch["arm64"], _ = strconv.ParseBool(cmd.Flag("arm64").Value.String())   //GOARCH=arm64
 
 	//Go build
 
-
 	//Create App and set values
 	app = application.New()
-	
+
 	//TODO allow selecting multiple values for arch and platform
 	if windows {
 		err = app.SetTarget("win")
 	} else if linux {
 		err = app.SetTarget("linux")
-	} else if mac{
+	} else if mac {
 		err = app.SetTarget("mac")
 	}
 	errz.Log(err)
@@ -134,8 +130,6 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	app.GoEntryPoint = goDir
 	app.AppDir = appDir
 	app.OutputDir = outputDir
-
-	log.Print(app)
 
 	return
 }

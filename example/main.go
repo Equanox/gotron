@@ -16,6 +16,7 @@ func main() {
 
 	window.WindowOptions.Width = 1200
 	window.WindowOptions.Height = 600
+	window.WindowOptions.Title = "Gotron"
 
 	done, err := window.Start()
 	if err != nil {

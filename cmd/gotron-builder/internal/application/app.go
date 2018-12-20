@@ -3,7 +3,7 @@ package application
 import (
 	"errors"
 	"fmt"
-	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
+	"github.com/Equanox/gotron/internal/file"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,7 +25,7 @@ type App struct {
 	AppDir       string // Application loaded by electronjs
 	Target       string // Target system to build for
 	OutputDir    string // Outputdirectory for build output
-	Arch		 string // Architecture to build for
+	Arch         string // Architecture to build for
 }
 
 type GoBuildOptions struct {
@@ -183,7 +183,7 @@ func (app *App) buildGoCode() (err error) {
 	args := []string{"build", "-tags", "gotronpack"}
 	runDir := app.GoEntryPoint
 	command := "go"
-	
+
 	var env []string
 	switch app.Target {
 	case "win":
@@ -220,9 +220,9 @@ func (app *App) buildGoCode() (err error) {
 	from := filepath.Join(runDir, fName)
 	var distFolder string
 	if app.Arch == "x64" {
-		distFolder = app.Target+"-unpacked"
+		distFolder = app.Target + "-unpacked"
 	} else {
-		distFolder = app.Target+"-"+app.Arch+"-unpacked"
+		distFolder = app.Target + "-" + app.Arch + "-unpacked"
 	}
 	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
 	return os.Rename(from, to)
@@ -234,9 +234,9 @@ func (app *App) syncDistDirs() (err error) {
 
 	var distFolder string
 	if app.Arch == "x64" {
-		distFolder = app.Target+"-unpacked"
+		distFolder = app.Target + "-unpacked"
 	} else {
-		distFolder = app.Target+"-"+app.Arch+"-unpacked"
+		distFolder = app.Target + "-" + app.Arch + "-unpacked"
 	}
 
 	src := filepath.Join(app.GoEntryPoint, ".gotron/dist", distFolder)
