@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Benchkram/errz"
 	"fmt"
 	"github.com/Equanox/gotron/cmd/gotron-builder/internal/application"
 	"os"
@@ -60,7 +61,8 @@ func Run(cmd *cobra.Command, args []string) {
 
 	app.GoEntryPoint = goDir
 	app.AppDir = appDir
-	app.Target = target
+	err = app.SetTarget(target)
+	errz.Log(err)
 
 	if err := app.Run(); err != nil {
 		log.Fatal().Msg(err.Error())

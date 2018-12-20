@@ -57,21 +57,32 @@ func (app *App) Run() (err error) {
 }
 
 func New() *App {
-	var target string
-	switch runtime.GOOS {
-	case "windows":
-		target = "win"
-	case "linux":
-		target = "linux"
-	case "darwin":
-		target = "mac"
-	default:
-		target = runtime.GOOS
-	}
+	app := App
+	err := app.SetTarget(runtime.GOOS)
+	errz.Log(err)
 
-	return &App{
-		Target: target,
+	return &app
+}
+
+//SetTarget sets the operation system to build the executable for
+func (app *App) SetTarget(target string) (err error) {
+	switch target {
+	case "win":
+		fallthrough
+	case "windows":
+		fallthrough
+	case "win32":
+		app.Target = "win"
+	case "linux":
+		app.Target = "linux"
+	case "darwin":
+		fallthrough
+	case "mac":
+		app.Target = "mac"
+	default:
+		return errors.New("Unkown build target " + target)
 	}
+	return
 }
 
 func (app *App) makeTempDir() (err error) {
