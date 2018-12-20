@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
-	"strings"
 
 	"github.com/otiai10/copy"
 

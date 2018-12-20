@@ -21,6 +21,9 @@ func init() {
 
 	rootCmd.PersistentFlags().StringP("target", "t", runtime.GOOS,
 		"target system, defaults to your os")
+		
+	rootCmd.PersistentFlags().StringP("output-directory", "o", ".",
+		"Application output directory. Build output will be put in dist/* inside this directory.")
 
 	//rootCmd.PersistentFlags().StringP("example-string", "", "", "description")
 	//rootCmd.PersistentFlags().IntP("example-int", "p", 1, "description")
@@ -35,6 +38,7 @@ func Run(cmd *cobra.Command, args []string) {
 	goDir := cmd.Flag("go").Value.String()
 	appDir := cmd.Flag("app").Value.String()
 	target := cmd.Flag("target").Value.String()
+	outputDir := cmd.Flag("output-directory").Value.String()
 	// s := cmd.Flag("example-string").Value.String()
 	// i, _ := strconv.ParseInt(cmd.Flag("example-int").Value.String(), 10, 0)
 	// b, _ := strconv.ParseBool(cmd.Flag("example-bool").Value.String())
@@ -52,10 +56,15 @@ func Run(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Fatal().Msg(err.Error())
 	}
+	outputDir, err = filepath.Abs(outputDir)
+	if err != nil {
+		log.Fatal().Msg(err.Error())
+	}
 
 	fmt.Println(appDir)
 	fmt.Println(goDir)
 	fmt.Println(target)
+	fmt.Println(outputDir)
 
 	app := application.New()
 
@@ -63,6 +72,7 @@ func Run(cmd *cobra.Command, args []string) {
 	app.AppDir = appDir
 	err = app.SetTarget(target)
 	errz.Log(err)
+	app.OutputDir = outputDir
 
 	if err := app.Run(); err != nil {
 		log.Fatal().Msg(err.Error())

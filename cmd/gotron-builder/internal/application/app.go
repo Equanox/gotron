@@ -24,6 +24,7 @@ type App struct {
 	GoEntryPoint string // Directory where go build is executed
 	AppDir       string // Application loaded by electronjs
 	Target       string // Target system to build for
+	OutputDir	 string // Outputdirectory for build output
 }
 
 type GoBuildOptions struct {
@@ -166,10 +167,12 @@ func (app *App) buildGoCode() (err error) {
 func (app *App) syncDistDirs() (err error) {
 	defer errz.Recover(&err)
 
-	err = copy.Copy(".gotron/dist", "dist")
+	src := filepath.Join(app.GoEntryPoint, ".gotron/dist")
+	dst := filepath.Join(app.OutputDir, "dist")
+	err = copy.Copy(src, dst)
 	errz.Fatal(err)
 
-	err = os.RemoveAll(".gotron/dist")
+	err = os.RemoveAll(src)
 	errz.Fatal(err)
 
 	return nil
