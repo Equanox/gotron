@@ -115,15 +115,6 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		errz.Fatal(err)
 	}
 
-	// No need to copy web application files
-	// when no ui folder is set.
-	// Also check for ".gotron/assets". This is the
-	// default directory when called from gotron-builder,
-	// avoids deleting asset dir by accident.
-	if gbw.UIFolder == "" || strings.Contains(gbw.UIFolder, ".gotron/assets") {
-		return
-	}
-
 	// UIFolder must contain a index.htm(l)
 	html := filepath.Join(gbw.UIFolder, "index.html")
 	htm := filepath.Join(gbw.UIFolder, "index.htm")
@@ -131,6 +122,11 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		return fmt.Errorf("index.htm(l) missing in %s", gbw.UIFolder)
 	}
 
+	// No need to copy web application files
+	// when no ui folder is set.
+	// Also check for ".gotron/assets". This is the
+	// default directory when called from gotron-builder,
+	// avoids deleting asset dir by accident.
 	src, err := filepath.Abs(gbw.UIFolder)
 	errz.Fatal(err)
 	dst, err := filepath.Abs(filepath.Join(gbw.AppDirectory, "assets"))
