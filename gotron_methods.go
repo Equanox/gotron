@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
-	"strings"
 
 	"github.com/otiai10/copy"
 
@@ -120,15 +119,6 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		errz.Fatal(err)
 	}
 
-	// No need to copy web application files
-	// when no ui folder is set.
-	// Also check for ".gotron/assets". This is the
-	// default directory when called from gotron-builder,
-	// avoids deleting asset dir by accident.
-	if gbw.UIFolder == "" || strings.Contains(gbw.UIFolder, ".gotron/assets") {
-		return
-	}
-
 	// UIFolder must contain a index.htm(l)
 	html := filepath.Join(gbw.UIFolder, "index.html")
 	htm := filepath.Join(gbw.UIFolder, "index.htm")
@@ -136,11 +126,23 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		return fmt.Errorf("index.htm(l) missing in %s", gbw.UIFolder)
 	}
 
-	err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
+	// No need to copy web application files
+	// when no ui folder is set.
+	// Also check for ".gotron/assets". This is the
+	// default directory when called from gotron-builder,
+	// avoids deleting asset dir by accident.
+	src, err := filepath.Abs(gbw.UIFolder)
 	errz.Fatal(err)
-
-	err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
-	errz.Fatal(err)
+	dst, err := filepath.Abs(filepath.Join(gbw.AppDirectory, "assets"))
+ 	errz.Fatal(err)
+ 
+ 	if src != dst {
+ 		err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
+ 		errz.Fatal(err)
+ 
+ 		err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
+ 		errz.Fatal(err)
+ 	}
 
 	return nil
 }

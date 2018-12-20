@@ -115,6 +115,29 @@ func runCmd(runDir, command string, args ...string) (err error) {
 	return
 }
 
+func runCmdEnv(runDir, command string, envVars []string, args ...string) (err error) {
+	defer errz.Recover(&err)
+
+	// fmt.Println(runDir)GoEntryPoint
+	// fmt.Println(command)
+	// fmt.Println(args)
+
+	cmd := exec.Command(command, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Dir = runDir
+	cmd.Env = os.Environ()
+	cmd.Env = append(cmd.Env, envVars...)
+	err = cmd.Start()
+
+	errz.Fatal(err)
+
+	err = cmd.Wait()
+	errz.Fatal(err)
+
+	return
+}
+
 func (app *App) installDependencies() (err error) {
 
 	args := []string{"install", "electron-builder", "--save-dev"}
@@ -135,7 +158,18 @@ func (app *App) buildElectron() (err error) {
 
 	projDir, err := filepath.Abs(filepath.Join(app.GoEntryPoint, ".gotron/"))
 
-	args := []string{app.Target, "--x64", "--dir", "--projectDir=" + projDir}
+	var target string
+	switch app.Target {
+	case "win":
+		target = "-w"
+	case "linux":
+		target = "-l"
+	case "mac":
+		target = "-m"
+	default:
+	}
+
+	args := []string{target, "--x64", "--dir", "--projectDir=" + projDir}
 
 	runDir := gotronBuilderDirectory
 	command := filepath.Join("node_modules/.bin/", "electron-builder")
@@ -145,9 +179,20 @@ func (app *App) buildElectron() (err error) {
 
 func (app *App) buildGoCode() (err error) {
 	defer errz.Recover(&err)
-	args := []string{"build", "-tags", "gotronbrowserwindowprod"}
+	args := []string{"build", "-tags", "gotronpack"}
 	runDir := app.GoEntryPoint
 	command := "go"
+	
+	var env []string
+	switch app.Target {
+	case "win":
+		env = append(env, "GOOS=windows")
+	case "linux":
+		env = append(env, "GOOS=linux")
+	case "mac":
+		env = append(env, "GOOS=darwin")
+	default:
+	}
 
 	fName := filepath.Base(runDir)
 
@@ -155,7 +200,7 @@ func (app *App) buildGoCode() (err error) {
 		fName = fName + ".exe"
 	}
 
-	err = runCmd(runDir, command, args...)
+	err = runCmdEnv(runDir, command, env, args...)
 	errz.Fatal(err)
 
 	from := filepath.Join(runDir, fName)
