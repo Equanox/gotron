@@ -52,10 +52,10 @@ func (app *App) Run() (err error) {
 	err = app.buildElectron()
 	errz.Fatal(err)
 
-	err = app.buildGoCode()
+	err = app.syncDistDirs()
 	errz.Fatal(err)
 
-	err = app.syncDistDirs()
+	err = app.buildGoCode()
 	errz.Fatal(err)
 
 	return err
@@ -224,7 +224,7 @@ func (app *App) buildGoCode() (err error) {
 	} else {
 		distFolder = app.Target+"-"+app.Arch+"-unpacked"
 	}
-	to := filepath.Join(app.GoEntryPoint, ".gotron/dist", distFolder, fName)
+	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
 	return os.Rename(from, to)
 }
 
@@ -232,12 +232,20 @@ func (app *App) buildGoCode() (err error) {
 func (app *App) syncDistDirs() (err error) {
 	defer errz.Recover(&err)
 
-	src := filepath.Join(app.GoEntryPoint, ".gotron/dist")
-	dst := filepath.Join(app.OutputDir, "dist")
+	var distFolder string
+	if app.Arch == "x64" {
+		distFolder = app.Target+"-unpacked"
+	} else {
+		distFolder = app.Target+"-"+app.Arch+"-unpacked"
+	}
+
+	src := filepath.Join(app.GoEntryPoint, ".gotron/dist", distFolder)
+	dst := filepath.Join(app.OutputDir, "dist", distFolder, "electronjs")
+
 	err = copy.Copy(src, dst)
 	errz.Fatal(err)
 
-	err = os.RemoveAll(src)
+	err = os.RemoveAll(filepath.Dir(src))
 	errz.Fatal(err)
 
 	return nil

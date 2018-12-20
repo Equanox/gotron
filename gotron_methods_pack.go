@@ -79,7 +79,7 @@ func (gbw *BrowserWindow) createStartParameters() (electronPath string, argument
 
 	exPath := filepath.Dir(ex)
 
-	electronPath, err = filepath.Abs(filepath.Join(exPath + "/gotron-browser-window"))
+	electronPath, err = filepath.Abs(filepath.Join(exPath, "electronjs", "gotron-browser-window"))
 	errz.Fatal(err)
 	appPath := ""
 	logger.Debug().Msgf(appPath)
