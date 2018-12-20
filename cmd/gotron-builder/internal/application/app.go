@@ -60,7 +60,7 @@ func (app *App) Run() (err error) {
 }
 
 func New() *App {
-	app := App
+	app := App{}
 	err := app.SetTarget(runtime.GOOS)
 	errz.Log(err)
 
