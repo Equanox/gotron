@@ -624,47 +624,49 @@ func (gbw *BrowserWindow) HookWindowMessage(message int, callback func([]interfa
 //IsWindowMessageHooked - Returns Boolean - true or false depending on whether the message is hooked.
 func (gbw *BrowserWindow) IsWindowMessageHooked(message int) bool {
 	//res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isWindowMessageHooked", Data: windo}
+	panic("Not implemented")
 	return false
 }
 
 //UnhookWindowMessage - Unhook the window message.
 func (gbw *BrowserWindow) UnhookWindowMessage(message int) {
-
+	panic("Not implemented")
 }
 
 //UnhookAllWindowMessages - Unhooks all of the window messages.
 func (gbw *BrowserWindow) UnhookAllWindowMessages() {
-
+	panic("Not implemented")
 }
 
 //SetRepresentedFilename - Sets the pathname of the file the window represents, and the icon of the file will show in window's title bar.
 func (gbw *BrowserWindow) SetRepresentedFilename(filename string) {
-
+	panic("Not implemented")
 }
 
 //GetRepresentedFilename - Returns String - The pathname of the file the window represents.
 func (gbw *BrowserWindow) GetRepresentedFilename() string {
+	panic("Not implemented")
 	return ""
 }
 
 //SetDocumentEdited - Specifies whether the window’s document has been edited, and the icon in title bar will become gray when set to true.
 func (gbw *BrowserWindow) SetDocumentEdited(edited bool) {
-
+	panic("Not implemented")
 }
 
 //IsDocumentEdited - Returns Boolean - Whether the window's document has been edited.
 func (gbw *BrowserWindow) IsDocumentEdited() {
-
+	panic("Not implemented")
 }
 
 //FocusOnWebView - Sets focus on webView.
 func (gbw *BrowserWindow) FocusOnWebView() {
-
+	panic("Not implemented")
 }
 
 //BlurWebView - Unsets focus from webView.
 func (gbw *BrowserWindow) BlurWebView() {
-
+	panic("Not implemented")
 }
 
 //CapturePage :
@@ -677,7 +679,7 @@ func (gbw *BrowserWindow) BlurWebView() {
 //
 // Same as webContents.capturePage([rect, ]callback).
 func (gbw *BrowserWindow) CapturePage(rect []Rectangle, handler func(image string)) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle options object
@@ -721,7 +723,7 @@ func (gbw *BrowserWindow) CapturePage(rect []Rectangle, handler func(image strin
 //    extraHeaders: 'Content-Type: application/x-www-form-urlencoded'
 //  })
 func (gbw *BrowserWindow) LoadURL(url, options interface{}) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle options object
@@ -740,17 +742,17 @@ func (gbw *BrowserWindow) LoadURL(url, options interface{}) {
 //
 // Same as webContents.loadFile, filePath should be a path to an HTML file relative to the root of your application. See the webContents docs for more information.
 func (gbw *BrowserWindow) LoadFile(filePath string, options interface{}) {
-
+	panic("Not implemented")
 }
 
 //Reload - Same as webContents.reload.
 func (gbw *BrowserWindow) Reload() {
-
+	panic("Not implemented")
 }
 
 //SetMenu - Sets the menu as the window's menu bar, setting it to null will remove the menu bar.
 func (gbw *BrowserWindow) SetMenu(menu string) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle options object
@@ -765,33 +767,35 @@ func (gbw *BrowserWindow) SetMenu(menu string) {
 //
 // On Windows, a mode can be passed. Accepted values are none, normal, indeterminate, error, and paused. If you call setProgressBar without a mode set (but with a value within the valid range), normal will be assumed.
 func (gbw *BrowserWindow) SetProgressBar(progress float64, options ...interface{}) {
-
+	panic("Not implemented")
 }
 
 //SetOverlayIcon - Sets a 16 x 16 pixel overlay onto the current taskbar icon, usually used to convey some sort of application status or to passively notify the user.
 func (gbw *BrowserWindow) SetOverlayIcon(overlay string, description string) {
-
+	panic("Not implemented")
 }
 
 //SetHasShadow - Sets whether the window should have a shadow. On Windows and Linux does nothing.
 func (gbw *BrowserWindow) SetHasShadow(hsShadow bool) {
-
+	panic("Not implemented")
 }
 
 //HasShadow - Returns Boolean - Whether the window has a shadow.
 //
 // On Windows and Linux always returns true.
 func (gbw *BrowserWindow) HasShadow() bool {
+	panic("Not implemented")
 	return false
 }
 
 //SetOpacity - Sets the opacity of the window. On Linux does nothing.
 func (gbw *BrowserWindow) SetOpacity(opacity float64) {
-
+	panic("Not implemented")
 }
 
 //GetOpacity - Returns Number - between 0.0 (fully transparent) and 1.0 (fully opaque)
 func (gbw *BrowserWindow) GetOpacity() float64 {
+	panic("Not implemented")
 	return 0
 }
 
@@ -799,7 +803,7 @@ func (gbw *BrowserWindow) GetOpacity() float64 {
 //
 //Setting a window shape determines the area within the window where the system permits drawing and user interaction. Outside of the given region, no pixels will be drawn and no mouse events will be registered. Mouse events outside of the region will not be received by that window, but will fall through to whatever is behind the window.
 func (gbw *BrowserWindow) SetShape(rects []Rectangle) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle buttons object
@@ -839,6 +843,7 @@ func (gbw *BrowserWindow) SetShape(rects []Rectangle) {
 //
 // noninteractive - The button is enabled but not interactive; no pressed button state is drawn. This value is intended for instances where the button is used in a notification.
 func (gbw *BrowserWindow) SetThumbarButtons(buttons interface{}) bool {
+	panic("Not implemented")
 	return false
 }
 
@@ -846,12 +851,12 @@ func (gbw *BrowserWindow) SetThumbarButtons(buttons interface{}) bool {
 //
 // Sets the region of the window to show as the thumbnail image displayed when hovering over the window in the taskbar. You can reset the thumbnail to be the entire window by specifying an empty region: { x: 0, y: 0, width: 0, height: 0 }.
 func (gbw *BrowserWindow) SetThumbnailClip(region Rectangle) {
-
+	panic("Not implemented")
 }
 
 //SetThumbnailToolTip - Sets the toolTip that is displayed when hovering over the window thumbnail in the taskbar.
 func (gbw *BrowserWindow) SetThumbnailToolTip(toolTip string) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle options object
@@ -874,45 +879,47 @@ func (gbw *BrowserWindow) SetThumbnailToolTip(toolTip string) {
 //
 // Note: relaunchCommand and relaunchDisplayName must always be set together. If one of those properties is not set, then neither will be used.
 func (gbw *BrowserWindow) SetAppDetails(options interface{}) {
-
+	panic("Not implemented")
 }
 
 //ShowDefinitionForSelection - Same as webContents.showDefinitionForSelection().
 func (gbw *BrowserWindow) ShowDefinitionForSelection() {
-
+	panic("Not implemented")
 }
 
 //SetIcon - Changes window icon.
 func (gbw *BrowserWindow) SetIcon(icon string) {
-
+	panic("Not implemented")
 }
 
 //SetWindowButtonVisibility - Sets whether the window traffic light buttons should be visible.
 //
 // This cannot be called when titleBarStyle is set to customButtonsOnHover.
 func (gbw *BrowserWindow) SetWindowButtonVisibility(visible bool) {
-
+	panic("Not implemented")
 }
 
 //SetAutoHideMenuBar - Sets whether the window menu bar should hide itself automatically. Once set the menu bar will only show when users press the single Alt key.
 //
 // If the menu bar is already visible, calling setAutoHideMenuBar(true) won't hide it immediately.
 func (gbw *BrowserWindow) SetAutoHideMenuBar(hide bool) {
-
+	panic("Not implemented")
 }
 
 //IsMenuBarAutoHide - Returns Boolean - Whether menu bar automatically hides itself.
 func (gbw *BrowserWindow) IsMenuBarAutoHide() bool {
+	panic("Not implemented")
 	return false
 }
 
 //SetMenuBarVisibility - Sets whether the menu bar should be visible. If the menu bar is auto-hide, users can still bring up the menu bar by pressing the single Alt key.
 func (gbw *BrowserWindow) SetMenuBarVisibility(visible bool) {
-
+	panic("Not implemented")
 }
 
 //IsMenuBarVisible - Returns Boolean - Whether the menu bar is visible.
 func (gbw *BrowserWindow) IsMenuBarVisible() bool {
+	panic("Not implemented")
 	return false
 }
 
@@ -922,11 +929,12 @@ func (gbw *BrowserWindow) IsMenuBarVisible() bool {
 //
 // Note: This API does nothing on Windows.
 func (gbw *BrowserWindow) SetVisibleOnAllWorkspaces(visible bool, options ...interface{}) {
-
+	panic("Not implemented")
 }
 
 //IsVisibleOnAllWorkspaces - Returns Boolean - Whether the window is visible on all workspaces.
 func (gbw *BrowserWindow) IsVisibleOnAllWorkspaces() bool {
+	panic("Not implemented")
 	return false
 }
 
@@ -936,78 +944,80 @@ func (gbw *BrowserWindow) IsVisibleOnAllWorkspaces() bool {
 //
 // All mouse events happened in this window will be passed to the window below this window, but if this window has focus, it will still receive keyboard events.
 func (gbw *BrowserWindow) SetIgnoreMouseEvents(ignore bool, options ...interface{}) {
-
+	panic("Not implemented")
 }
 
 //SetContentProtection - Prevents the window contents from being captured by other apps.
 //
 // On macOS it sets the NSWindow's sharingType to NSWindowSharingNone. On Windows it calls SetWindowDisplayAffinity with WDA_MONITOR.
 func (gbw *BrowserWindow) SetContentProtection(enable bool) {
-
+	panic("Not implemented")
 }
 
 //SetFocusable - Changes whether the window can be focused.
 func (gbw *BrowserWindow) SetFocusable(focusable bool) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to set parent browserwindow from go
 
 //SetParentWindow - Sets parent as current window's parent window, passing null will turn current window into a top-level window.
 func (gbw *BrowserWindow) SetParentWindow(parent *BrowserWindow) {
-
+	panic("Not implemented")
 }
 
 //GetParentWindow - Returns BrowserWindow - The parent window.
 func (gbw *BrowserWindow) GetParentWindow() BrowserWindow {
+	panic("Not implemented")
 	return BrowserWindow{}
 }
 
 //GetChildWindows - Returns BrowserWindow[] - All child windows.
 func (gbw *BrowserWindow) GetChildWindows() []BrowserWindow {
+	panic("Not implemented")
 	return nil
 }
 
 //SetAutoHideCursor - Controls whether to hide cursor when typing.
 func (gbw *BrowserWindow) SetAutoHideCursor(autoHide bool) {
-
+	panic("Not implemented")
 }
 
 //SelectPreviousTab - Selects the previous tab when native tabs are enabled and there are other tabs in the window.
 func (gbw *BrowserWindow) SelectPreviousTab() {
-
+	panic("Not implemented")
 }
 
 //SelectNextTab - Selects the next tab when native tabs are enabled and there are other tabs in the window.
 func (gbw *BrowserWindow) SelectNextTab() {
-
+	panic("Not implemented")
 }
 
 //MergeAllWindows - Merges all windows into one window with multiple tabs when native tabs are enabled and there is more than one open window.
 func (gbw *BrowserWindow) MergeAllWindows() {
-
+	panic("Not implemented")
 }
 
 //MoveTabToNewWindow - Moves the current tab into a new window if native tabs are enabled and there is more than one tab in the current window.
 func (gbw *BrowserWindow) MoveTabToNewWindow() {
-
+	panic("Not implemented")
 }
 
 //ToggleTabBar - Toggles the visibility of the tab bar if native tabs are enabled and there is only one tab in the current window.
 func (gbw *BrowserWindow) ToggleTabBar() {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to pass this to electron
 
 //AddTabbedWindow - Adds a window as a tab on this window, after the tab for the window instance.
 func (gbw *BrowserWindow) AddTabbedWindow(browserwindow *BrowserWindow) {
-
+	panic("Not implemented")
 }
 
 //SetVibrancy - Adds a vibrancy effect to the browser window. Passing null or an empty string will remove the vibrancy effect on the window.
 func (gbw *BrowserWindow) SetVibrancy(vibrancy string) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle touchbar object
@@ -1016,19 +1026,20 @@ func (gbw *BrowserWindow) SetVibrancy(vibrancy string) {
 //
 // Note: The TouchBar API is currently experimental and may change or be removed in future Electron releases.
 func (gbw *BrowserWindow) SetTouchBar(touchBar interface{}) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle browserView object
 
 //SetBrowserView - experimental
 func (gbw *BrowserWindow) SetBrowserView(browserView interface{}) {
-
+	panic("Not implemented")
 }
 
 //TODO: find out how to handle browserView object
 
 //GetBrowserView - experimental
 func (gbw *BrowserWindow) GetBrowserView() interface{} {
+	panic("Not implemented")
 	return nil
 }
