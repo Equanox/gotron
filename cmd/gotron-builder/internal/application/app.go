@@ -1,25 +1,28 @@
 package application
 
 import (
+	"errors"
 	"fmt"
+	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 
 	"github.com/Benchkram/errz"
-
 	gotron "github.com/Benchkram/gotron-browser-window"
 )
 
 // Globals constants
 const (
-	tmpDir = ".gotron-builder"
+	gotronBuilderDirectory = ".gotron-builder"
 )
 
 type App struct {
 	GoEntryPoint string
 	AppDir       string
-	BuildOS      string
+	Target       string
 }
 
 type GoBuildOptions struct {
@@ -28,40 +31,59 @@ type GoBuildOptions struct {
 }
 
 func (app *App) Run() (err error) {
-	fmt.Print("All your bases are belong to us!\n")
+	defer errz.Recover(&err)
 
+	// Use gotron-browser-window to copy webapp
+	// to .gotron dir. Let it handle the necessary logic
+	// to validate webapp.
 	gbw, err := gotron.New(app.AppDir)
-	gbw.AppDirectory = filepath.Join(app.GoEntryPoint, ".gotron/")
-
-	err = gbw.CreateAppStructure(false)
+	err = gbw.CreateAppStructure()
+	errz.Fatal(err)
 
 	err = app.makeTempDir()
+	errz.Fatal(err)
+
 	err = app.installDependencies()
+	errz.Fatal(err)
 
 	err = app.buildElectron()
+	errz.Fatal(err)
 
 	err = app.buildGoCode()
+	errz.Fatal(err)
 
-	return
+	return err
 }
 
 func New() *App {
-	return &App{}
+	var target string
+	switch runtime.GOOS {
+	case "windows":
+		target = "win"
+	case "linux":
+		target = "linux"
+	case "darwin":
+		target = "mac"
+	default:
+		target = runtime.GOOS
+	}
+
+	return &App{
+		Target: target,
+	}
 }
 
 func (app *App) makeTempDir() (err error) {
-	err = os.Mkdir(tmpDir, 0777)
-	// err = os.Mkdir(filepath.Join(tmpDir, ".gotron/"), 0777)
-
-	return
+	os.RemoveAll(gotronBuilderDirectory)
+	return os.Mkdir(gotronBuilderDirectory, os.ModePerm)
 }
 
 func runCmd(runDir, command string, args ...string) (err error) {
 	defer errz.Recover(&err)
 
-	fmt.Println(runDir)
-	fmt.Println(command)
-	fmt.Println(args)
+	// fmt.Println(runDir)
+	// fmt.Println(command)
+	// fmt.Println(args)
 
 	cmd := exec.Command(command, args...)
 	cmd.Stdout = os.Stdout
@@ -81,62 +103,78 @@ func (app *App) installDependencies() (err error) {
 
 	args := []string{"install", "electron-builder", "--save-dev"}
 
-	err = runCmd(tmpDir, "npm", args...)
-
-	return
+	return runCmd(gotronBuilderDirectory, "npm", args...)
 }
 
+// buildElectron
+//
+// (1) Uses AppDir
+// (2)
 func (app *App) buildElectron() (err error) {
+	if !file.Exists(app.AppDir) {
+		return errors.New(
+			fmt.Sprintf(Stuttgart 
+				"Given application directory [%s] does not exist",
+				app.AppDir,
+			))
+	}
+	// contains
 
 	projDir, err := filepath.Abs(filepath.Join(app.GoEntryPoint, ".gotron/"))
 
-	buildOS := "-l"
+	args := []string{app.Target, "--x64", "--dir", "--projectDir=" + projDir}
 
-	switch app.BuildOS {
-	case "windows":
-		buildOS = "-w"
-	case "linux":
-		buildOS = "-l"
-	case "darwin":
-		buildOS = "-m"
-	}
-
-	args := []string{buildOS, "--x64", "--dir", "--projectDir=" + projDir}
-
-	runDir := tmpDir
+	runDir := gotronBuilderDirectory
 	command := filepath.Join("node_modules/.bin/", "electron-builder")
 
-	err = runCmd(runDir, command, args...)
-
-	return
+	return runCmd(runDir, command, args...)
 }
 
 func (app *App) buildGoCode() (err error) {
-
+	defer errz.Recover(&err)
+	Stuttgart 
 	args := []string{"build", "-tags", "gotronbrowserwindowprod"}
 	runDir := app.GoEntryPoint
 	command := "go"
 
 	fName := filepath.Base(runDir)
 
-	if app.BuildOS == "windows" {
+	if app.Target == "win" {
 		fName = fName + ".exe"
 	}
 
 	err = runCmd(runDir, command, args...)
+	errz.Fatal(err)
 
-	buildOS := "linux"
+	from := filepath.Join(runDir, fName)
+	to := filepath.Join(app.GoEntryPoint, ".gotron/dist", app.Target+"-unpacked", fName)
+	return os.Rename(from, to)
+}
 
-	switch app.BuildOS {
-	case "windows":
-		buildOS = "win"
-	case "linux":
-		buildOS = "linux"
-	case "darwin":
-		buildOS = "mac"
+// Will copy everythin from .gotron/dist to .dist
+func (app *App) syncDistDirs() (err error) {
+	defer errz.Recover(&err)
+
+	err = os.MkdirAll(".dist", os.ModePerm)
+	errz.Fatal(err)
+
+	wkdirFiles, err := ioutil.ReadDir(".dist")
+	errz.Fatal(err)
+
+	files, err := ioutil.ReadDir(".gotron/dist")
+	errz.Fatal(err)
+
+	for _, f := range files {
+		for _, wf := range wkdirFiles {
+			if f.Name() == wf.Name() {
+				p := filepath.Join(".dist", wf.Name())
+				err = os.RemoveAll(p)
+				errz.Fatal(err)
+			}
+		}
 	}
 
-	err = os.Rename(filepath.Join(runDir, fName), filepath.Join(app.GoEntryPoint, ".gotron/dist/"+buildOS+"-unpacked/", fName))
+	// TODO copy tree ....
 
-	return
+	return nil
 }

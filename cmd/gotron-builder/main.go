@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/Equanox/gotron/cmd/gotron-builder/internal/application"
 	"os"
-	"runtime"
 	"path/filepath"
+	"runtime"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -13,12 +13,17 @@ import (
 )
 
 func init() {
-	rootCmd.PersistentFlags().StringP("example-string", "", "", "description")
-	rootCmd.PersistentFlags().StringP("go-entrypoint", "g", ".", "description")
-	rootCmd.PersistentFlags().StringP("app-directory", "a", ".gotron/assets/", "description")
-	rootCmd.PersistentFlags().StringP("build-os", "b", runtime.GOOS, "description")
-	rootCmd.PersistentFlags().IntP("example-int", "p", 1, "description")
-	rootCmd.PersistentFlags().BoolP("example-bool", "", false, "description")
+	rootCmd.PersistentFlags().StringP("go", "g", ".",
+		"Go entrypoint, must point to a directory containing a main.go")
+	rootCmd.PersistentFlags().StringP("app", "a", ".gotron/assets/",
+		"Application directory, must point to a directory containing a webapp starting at index.html")
+
+	rootCmd.PersistentFlags().StringP("target", "t", runtime.GOOS,
+		"target system, defaults to your os")
+
+	//rootCmd.PersistentFlags().StringP("example-string", "", "", "description")
+	//rootCmd.PersistentFlags().IntP("example-int", "p", 1, "description")
+	//rootCmd.PersistentFlags().BoolP("example-bool", "", false, "description")
 }
 
 func Run(cmd *cobra.Command, args []string) {
@@ -26,14 +31,14 @@ func Run(cmd *cobra.Command, args []string) {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr}).With().Caller().Logger()
 
 	// Parse flags
-	s := cmd.Flag("example-string").Value.String()
-	appDir := cmd.Flag("app-directory").Value.String()
-	goDir := cmd.Flag("go-entrypoint").Value.String()
-	buildOs := cmd.Flag("build-os").Value.String()
+	goDir := cmd.Flag("go").Value.String()
+	appDir := cmd.Flag("app").Value.String()
+	target := cmd.Flag("target").Value.String()
+	// s := cmd.Flag("example-string").Value.String()
 	// i, _ := strconv.ParseInt(cmd.Flag("example-int").Value.String(), 10, 0)
 	// b, _ := strconv.ParseBool(cmd.Flag("example-bool").Value.String())
 
-	if (goDir != ".") && (appDir == ".gotron/assets/") {
+	if (goDir != ".") && ((appDir == ".gotron/assets/") || (appDir == ".gotron/assets")) {
 		appDir = filepath.Join(goDir, appDir)
 	}
 
@@ -47,16 +52,15 @@ func Run(cmd *cobra.Command, args []string) {
 		log.Fatal().Msg(err.Error())
 	}
 
-	fmt.Println(s)
 	fmt.Println(appDir)
 	fmt.Println(goDir)
-	fmt.Println(buildOs)
+	fmt.Println(target)
 
 	app := application.New()
 
 	app.GoEntryPoint = goDir
 	app.AppDir = appDir
-	app.BuildOS = buildOs
+	app.Target = target
 
 	if err := app.Run(); err != nil {
 		log.Fatal().Msg(err.Error())
@@ -76,3 +80,7 @@ func main() {
 		os.Exit(1)
 	}
 }
+
+// TODO
+//
+// - gotron-builder deletes asset dir from .gotron

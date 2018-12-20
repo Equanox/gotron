@@ -23,7 +23,7 @@ func main() {
 		return
 	}
 
-	window.OpenDevTools()
+	//window.OpenDevTools()
 
 	<-done
 }

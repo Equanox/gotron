@@ -9,4 +9,4 @@ require (
 	github.com/spf13/pflag v1.0.3 // indirect
 )
 
-replace github.com/Benchkram/gotron-browser-window => D:/VSCode/GO/src/gotronbrowserwindow
+replace github.com/Benchkram/gotron-browser-window => /home/equa/repos/gotron-browser-window
