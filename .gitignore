@@ -10,5 +10,6 @@ vendor/
 .gotron/
 example/example.exe
 example/example
+example/gotron-builder
 
 *.d.ts

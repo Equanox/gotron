@@ -131,11 +131,19 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		return fmt.Errorf("index.htm(l) missing in %s", gbw.UIFolder)
 	}
 
-	err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
+	src, err := filepath.Abs(gbw.UIFolder)
+	errz.Fatal(err)
+	dst, err := filepath.Abs(filepath.Join(gbw.AppDirectory, "assets"))
 	errz.Fatal(err)
 
-	err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
-	errz.Fatal(err)
+	logger.Debug().Msgf("Src: %s\nDst: %s\n", src, dst)
+	if src != dst {
+		err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
+		errz.Fatal(err)
+
+		err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
+		errz.Fatal(err)
+	}
 
 	return nil
 }
