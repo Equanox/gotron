@@ -3,15 +3,15 @@ package application
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 
-	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
-
 	"github.com/Benchkram/errz"
+	"github.com/otiai10/copy"
+
 	gotron "github.com/Equanox/gotron/pkg/browser-window"
 )
 
@@ -21,9 +21,9 @@ const (
 )
 
 type App struct {
-	GoEntryPoint string
-	AppDir       string
-	Target       string
+	GoEntryPoint string // Directory where go build is executed
+	AppDir       string // Application loaded by electronjs
+	Target       string // Target system to build for
 }
 
 type GoBuildOptions struct {
@@ -51,6 +51,9 @@ func (app *App) Run() (err error) {
 	errz.Fatal(err)
 
 	err = app.buildGoCode()
+	errz.Fatal(err)
+
+	err = app.syncDistDirs()
 	errz.Fatal(err)
 
 	return err
@@ -82,7 +85,7 @@ func (app *App) makeTempDir() (err error) {
 func runCmd(runDir, command string, args ...string) (err error) {
 	defer errz.Recover(&err)
 
-	// fmt.Println(runDir)
+	// fmt.Println(runDir)GoEntryPoint
 	// fmt.Println(command)
 	// fmt.Println(args)
 
@@ -108,13 +111,11 @@ func (app *App) installDependencies() (err error) {
 }
 
 // buildElectron
-//
-// (1) Uses AppDir
-// (2)
 func (app *App) buildElectron() (err error) {
 	if !file.Exists(app.AppDir) {
 		return errors.New(
-			fmt.Sprintf("Given application directory [%s] does not exist",
+			fmt.Sprintf(
+				"Given application directory [%s] does not exist",
 				app.AppDir,
 			))
 	}
@@ -154,26 +155,11 @@ func (app *App) buildGoCode() (err error) {
 func (app *App) syncDistDirs() (err error) {
 	defer errz.Recover(&err)
 
-	err = os.MkdirAll(".dist", os.ModePerm)
+	err = copy.Copy(".gotron/dist", "dist")
 	errz.Fatal(err)
 
-	wkdirFiles, err := ioutil.ReadDir(".dist")
+	err = os.RemoveAll(".gotron/dist")
 	errz.Fatal(err)
-
-	files, err := ioutil.ReadDir(".gotron/dist")
-	errz.Fatal(err)
-
-	for _, f := range files {
-		for _, wf := range wkdirFiles {
-			if f.Name() == wf.Name() {
-				p := filepath.Join(".dist", wf.Name())
-				err = os.RemoveAll(p)
-				errz.Fatal(err)
-			}
-		}
-	}
-
-	// TODO copy tree ....
 
 	return nil
 }
