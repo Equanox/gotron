@@ -118,6 +118,7 @@ func (gbw *BrowserWindow) SetWidth(width int) {
 func (gbw *BrowserWindow) Destroy() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "destroy"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //Close - Try to close the window. This has the same effect as a user manually clicking the close button of the window. The web page may cancel the close though. See the close event.
@@ -130,18 +131,21 @@ func (gbw *BrowserWindow) Close() {
 func (gbw *BrowserWindow) Focus() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "focus"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //Blur - Removes focus from the window.
 func (gbw *BrowserWindow) Blur() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "blur"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsFocused - Returns Boolean - Whether the window is focused.
 func (gbw *BrowserWindow) IsFocused() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isFocused"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -149,6 +153,7 @@ func (gbw *BrowserWindow) IsFocused() bool {
 func (gbw *BrowserWindow) IsDestroyed() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isDestroyed"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -156,24 +161,28 @@ func (gbw *BrowserWindow) IsDestroyed() bool {
 func (gbw *BrowserWindow) Show() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "show"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //ShowInactive - Shows the window but doesn't focus on it.
 func (gbw *BrowserWindow) ShowInactive() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "showInactive"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //Hide - Hides the window.
 func (gbw *BrowserWindow) Hide() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "hide"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsVisible - Returns Boolean - Whether the window is visible to the user.
 func (gbw *BrowserWindow) IsVisible() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isVisible"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -181,6 +190,7 @@ func (gbw *BrowserWindow) IsVisible() bool {
 func (gbw *BrowserWindow) IsModal() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isModal"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -194,12 +204,14 @@ func (gbw *BrowserWindow) Maximize() {
 func (gbw *BrowserWindow) UnMaximize() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "unmaximize"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsMaximised - Returns Boolean - Whether the window is maximized.
 func (gbw *BrowserWindow) IsMaximised() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isMaximized"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -213,6 +225,7 @@ func (gbw *BrowserWindow) Minimize() {
 func (gbw *BrowserWindow) IsMinimized() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isMinimized"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -232,6 +245,7 @@ func (gbw *BrowserWindow) SetFullScreen(flag bool) {
 func (gbw *BrowserWindow) IsFullScreen() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isFullScreen"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -240,12 +254,14 @@ func (gbw *BrowserWindow) IsFullScreen() bool {
 func (gbw *BrowserWindow) SetSimpleFullScreen(flag bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setSimpleFullScreen", Data: flagStruct{Flag: flag}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsSimpleFullScreen - Returns Boolean - Whether the window is in simple (pre-Lion) fullscreen mode.
 func (gbw *BrowserWindow) IsSimpleFullScreen() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isSimpleFullScreen"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -253,6 +269,7 @@ func (gbw *BrowserWindow) IsSimpleFullScreen() bool {
 func (gbw *BrowserWindow) IsNormal() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isNormal"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -272,6 +289,7 @@ func (gbw *BrowserWindow) IsNormal() bool {
 func (gbw *BrowserWindow) SetAspectRatio(aspectRatio float64, extraSize string) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setAspectRatio", Data: aspectRatioStruct{AspectRatio: aspectRatio, ExtraSize: extraSize}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetBackgroundColor :
@@ -282,6 +300,7 @@ func (gbw *BrowserWindow) SetAspectRatio(aspectRatio float64, extraSize string) 
 func (gbw *BrowserWindow) SetBackgroundColor(backgroundColor string) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setBackgroundColor", Data: backgroundColorStruct{BackgroundColor: backgroundColor}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //PreviewFile :
@@ -294,12 +313,14 @@ func (gbw *BrowserWindow) SetBackgroundColor(backgroundColor string) {
 func (gbw *BrowserWindow) PreviewFile(path string, displayName ...string) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isNormal", Data: previewFileStruct{Path: path, DisplayName: displayName}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //CloseFilePreview - Closes the currently open Quick Look panel.
 func (gbw *BrowserWindow) CloseFilePreview() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "closeFilePreview"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetBounds :
@@ -312,12 +333,14 @@ func (gbw *BrowserWindow) CloseFilePreview() {
 func (gbw *BrowserWindow) SetBounds(bounds Rectangle, animate ...bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setBounds", Data: setBoundsStruct{Bounds: bounds, Animate: animate}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetBounds - Returns Rectangle
 func (gbw *BrowserWindow) GetBounds() Rectangle {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getBounds"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return Rectangle{}
 }
 
@@ -327,12 +350,14 @@ func (gbw *BrowserWindow) GetBounds() Rectangle {
 func (gbw *BrowserWindow) SetContentBounds(bounds Rectangle, animate ...bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setContentBounds", Data: setBoundsStruct{Bounds: bounds, Animate: animate}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetContentBounds - Returns Rectangle
 func (gbw *BrowserWindow) GetContentBounds() Rectangle {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getContentBounds"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return Rectangle{}
 }
 
@@ -342,6 +367,7 @@ func (gbw *BrowserWindow) GetContentBounds() Rectangle {
 func (gbw *BrowserWindow) GetNormalBounds() Rectangle {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getNormalBounds"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return Rectangle{}
 }
 
@@ -349,6 +375,7 @@ func (gbw *BrowserWindow) GetNormalBounds() Rectangle {
 func (gbw *BrowserWindow) SetEnabled(enable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setEnabled", Data: setEnabledStruct{Enable: enable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetSize :
@@ -363,6 +390,7 @@ func (gbw *BrowserWindow) SetSize(width int, height int, animate ...bool) {
 func (gbw *BrowserWindow) GetSize() []int {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getSize"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return nil
 }
 
@@ -370,12 +398,14 @@ func (gbw *BrowserWindow) GetSize() []int {
 func (gbw *BrowserWindow) SetContentSize(width int, height int, animate ...bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setContentSize", Data: setSizeStruct{Width: width, Height: height, Animate: animate}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetContentSize - Returns Integer[] - Contains the window's client area's width and height.
 func (gbw *BrowserWindow) GetContentSize() []int {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getContentSize"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return nil
 }
 
@@ -383,12 +413,14 @@ func (gbw *BrowserWindow) GetContentSize() []int {
 func (gbw *BrowserWindow) SetMinimumSize(width, height int) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setMinimumSize", Data: setSizeStruct{Width: width, Height: height}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetMinimumSize - Returns Integer[] - Contains the window's minimum width and height.
 func (gbw *BrowserWindow) GetMinimumSize() []int {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getMinimumSize"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return nil
 }
 
@@ -396,12 +428,14 @@ func (gbw *BrowserWindow) GetMinimumSize() []int {
 func (gbw *BrowserWindow) SetMaximumSize(width, height int) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setMaximumSize", Data: setSizeStruct{Width: width, Height: height}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetMaximumSize - Returns Integer[] - Contains the window's maximum width and height.
 func (gbw *BrowserWindow) GetMaximumSize() []int {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getMaximumSize"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return nil
 }
 
@@ -409,12 +443,14 @@ func (gbw *BrowserWindow) GetMaximumSize() []int {
 func (gbw *BrowserWindow) SetResizable(resizable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setResizable", Data: setResizableStruct{Resizable: resizable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsResizable - Returns Boolean - Whether the window can be manually resized by user.
 func (gbw *BrowserWindow) IsResizable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isResizable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -422,6 +458,7 @@ func (gbw *BrowserWindow) IsResizable() bool {
 func (gbw *BrowserWindow) SetMovable(movable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setMovable", Data: setMovableStruct{Movable: movable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsMovable :
@@ -432,6 +469,7 @@ func (gbw *BrowserWindow) SetMovable(movable bool) {
 func (gbw *BrowserWindow) IsMovable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isMovable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -439,6 +477,7 @@ func (gbw *BrowserWindow) IsMovable() bool {
 func (gbw *BrowserWindow) SetMinimizable(minimizable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setMinimizable", Data: setMinimizableStruct{Minimizable: minimizable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsMinimizable :
@@ -449,6 +488,7 @@ func (gbw *BrowserWindow) SetMinimizable(minimizable bool) {
 func (gbw *BrowserWindow) IsMinimizable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isMinimizable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -456,6 +496,7 @@ func (gbw *BrowserWindow) IsMinimizable() bool {
 func (gbw *BrowserWindow) SetMaximizable(maximizable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setMaximizable", Data: setMaximizableStruct{Maximizable: maximizable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsMaximizable :
@@ -466,6 +507,7 @@ func (gbw *BrowserWindow) SetMaximizable(maximizable bool) {
 func (gbw *BrowserWindow) IsMaximizable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isMaximizable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -473,6 +515,7 @@ func (gbw *BrowserWindow) IsMaximizable() bool {
 func (gbw *BrowserWindow) SetFullScreenable(fullscreenable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setFullScreenable", Data: setFullScreenableStruct{FullScreenable: fullscreenable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsFullScreenable :
@@ -481,6 +524,7 @@ func (gbw *BrowserWindow) SetFullScreenable(fullscreenable bool) {
 func (gbw *BrowserWindow) IsFullScreenable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isFullScreenable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -488,6 +532,7 @@ func (gbw *BrowserWindow) IsFullScreenable() bool {
 func (gbw *BrowserWindow) SetClosable(closable bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setClosable", Data: setClosableStruct{Closable: closable}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsClosable :
@@ -498,6 +543,7 @@ func (gbw *BrowserWindow) SetClosable(closable bool) {
 func (gbw *BrowserWindow) IsClosable() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isClosable"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -513,12 +559,14 @@ func (gbw *BrowserWindow) IsClosable() bool {
 func (gbw *BrowserWindow) SetAlwaysOnTop(flag bool, level string, relativeLevel ...int) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setAlwaysOnTop", Data: setAlwaysOnTopStruct{Flag: flag, Level: level, RelativeLevel: relativeLevel}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsAlwaysOnTop - Returns Boolean - Whether the window is always on top of other windows.
 func (gbw *BrowserWindow) IsAlwaysOnTop() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isAlwaysOnTop"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -526,24 +574,28 @@ func (gbw *BrowserWindow) IsAlwaysOnTop() bool {
 func (gbw *BrowserWindow) MoveTop() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "moveTop"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //Center - Moves window to the center of the screen.
 func (gbw *BrowserWindow) Center() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "center"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetPosition - Moves window to x and y.
 func (gbw *BrowserWindow) SetPosition(x, y int, animate ...bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setPosition", Data: setPositionStruct{X: x, Y: y, Animate: animate}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //GetPosition - Returns Integer[] - Contains the window's current position.
 func (gbw *BrowserWindow) GetPosition() []int {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getPosition"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return nil
 }
 
@@ -559,6 +611,7 @@ func (gbw *BrowserWindow) SetTitle(title string) {
 func (gbw *BrowserWindow) GetTitle() string {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getTitle"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return ""
 }
 
@@ -572,30 +625,35 @@ func (gbw *BrowserWindow) GetTitle() string {
 func (gbw *BrowserWindow) SetSheetOffset(offsetY float64, offsetX ...float64) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setSheetOffset", Data: setSheetOffsetStruct{OffsetY: offsetY, OffsetX: offsetX}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //FlashFrame - Starts or stops flashing the window to attract user's attention.
 func (gbw *BrowserWindow) FlashFrame(flag bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "flashFrame", Data: flagStruct{Flag: flag}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetSkipTaskbar - Makes the window not show in the taskbar.
 func (gbw *BrowserWindow) SetSkipTaskbar(skip bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setSkipTaskbar", Data: setSkipStruct{Skip: skip}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //SetKiosk - Enters or leaves the kiosk mode.
 func (gbw *BrowserWindow) SetKiosk(flag bool) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "setKiosk", Data: flagStruct{Flag: flag}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsKiosk - Returns Boolean - Whether the window is in kiosk mode.
 func (gbw *BrowserWindow) IsKiosk() bool {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "isKiosk"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 	return false
 }
 
@@ -609,6 +667,7 @@ func (gbw *BrowserWindow) IsKiosk() bool {
 func (gbw *BrowserWindow) GetNativeWindowHandle() {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "getNativeWindowHandle"})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //TODO how to register go callbacks to electron
@@ -619,6 +678,7 @@ func (gbw *BrowserWindow) GetNativeWindowHandle() {
 func (gbw *BrowserWindow) HookWindowMessage(message int, callback func([]interface{}) []interface{}) {
 	res, _ := gbw.sendAndReceiveSocketEvent(SocketEvent{Event: "hookWindowMessage", Data: hookWindowMessageStruct{Message: message, Callback: callback}})
 	logger.Debug().Msgf("%+v\n", res)
+	panic("Not implemented")
 }
 
 //IsWindowMessageHooked - Returns Boolean - true or false depending on whether the message is hooked.
