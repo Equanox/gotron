@@ -2,11 +2,10 @@ package main
 
 import (
 	"github.com/Benchkram/errz"
-	"fmt"
 	"github.com/Equanox/gotron/cmd/gotron-builder/internal/application"
 	"os"
 	"path/filepath"
-	"runtime"
+	"strconv"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -18,12 +17,30 @@ func init() {
 		"Go entrypoint, must point to a directory containing a main.go")
 	rootCmd.PersistentFlags().StringP("app", "a", ".gotron/assets/",
 		"Application directory, must point to a directory containing a webapp starting at index.html")
-
-	rootCmd.PersistentFlags().StringP("target", "t", runtime.GOOS,
-		"target system, defaults to your os")
 		
-	rootCmd.PersistentFlags().StringP("output-directory", "o", ".",
+	rootCmd.PersistentFlags().StringP("out", "", ".",
 		"Application output directory. Build output will be put in dist/* inside this directory.")
+
+	// Electron-Builder parameters
+	
+	//Platforms
+
+	//Build for macOS
+	rootCmd.PersistentFlags().BoolP("mac", "m", false, "Build for macOS")
+	rootCmd.PersistentFlags().BoolP("macos", "o", false, "Build for macOS")
+
+	//Build for linux
+	rootCmd.PersistentFlags().BoolP("linux", "l", false, "Build for Linux")
+
+	//Build for windows
+	rootCmd.PersistentFlags().BoolP("win", "w", false, "Build for Windows")
+	rootCmd.PersistentFlags().BoolP("windows", "", false, "Build for Windows")
+
+	// Architectures
+	rootCmd.PersistentFlags().BoolP("x64", "", false, "Build for x64")
+	rootCmd.PersistentFlags().BoolP("ia32", "", false, "Build for ia32")
+	rootCmd.PersistentFlags().BoolP("armv7l", "", false, "Build for armv7l")
+	rootCmd.PersistentFlags().BoolP("arm64", "", false, "Build for arm64")
 
 	//rootCmd.PersistentFlags().StringP("example-string", "", "", "description")
 	//rootCmd.PersistentFlags().IntP("example-int", "p", 1, "description")
@@ -34,45 +51,12 @@ func Run(cmd *cobra.Command, args []string) {
 	zerolog.TimeFieldFormat = ""
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr}).With().Caller().Logger()
 
-	// Parse flags
-	goDir := cmd.Flag("go").Value.String()
-	appDir := cmd.Flag("app").Value.String()
-	target := cmd.Flag("target").Value.String()
-	outputDir := cmd.Flag("output-directory").Value.String()
-	// s := cmd.Flag("example-string").Value.String()
-	// i, _ := strconv.ParseInt(cmd.Flag("example-int").Value.String(), 10, 0)
-	// b, _ := strconv.ParseBool(cmd.Flag("example-bool").Value.String())
-
-	if (goDir != ".") && ((appDir == ".gotron/assets/") || (appDir == ".gotron/assets")) {
-		appDir = filepath.Join(goDir, appDir)
-	}
-
-	// make paths absolute
-	appDir, err := filepath.Abs(appDir)
+	app, err := parseFlags(cmd)
 	if err != nil {
+		log.Fatal().Msg("Bad input parameters:-")
 		log.Fatal().Msg(err.Error())
+		return
 	}
-	goDir, err = filepath.Abs(goDir)
-	if err != nil {
-		log.Fatal().Msg(err.Error())
-	}
-	outputDir, err = filepath.Abs(outputDir)
-	if err != nil {
-		log.Fatal().Msg(err.Error())
-	}
-
-	fmt.Println(appDir)
-	fmt.Println(goDir)
-	fmt.Println(target)
-	fmt.Println(outputDir)
-
-	app := application.New()
-
-	app.GoEntryPoint = goDir
-	app.AppDir = appDir
-	err = app.SetTarget(target)
-	errz.Log(err)
-	app.OutputDir = outputDir
 
 	if err := app.Run(); err != nil {
 		log.Fatal().Msg(err.Error())
@@ -86,13 +70,79 @@ var rootCmd = &cobra.Command{
 	Run:   Run,
 }
 
+func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
+	defer errz.Recover(&err)
+
+	//General
+	goDir := cmd.Flag("go").Value.String()
+	appDir := cmd.Flag("app").Value.String()
+	outputDir := cmd.Flag("out").Value.String()
+
+	if (goDir != ".") && ((appDir == ".gotron/assets/") || (appDir == ".gotron/assets")) {
+		appDir = filepath.Join(goDir, appDir)
+	}
+
+	// make paths absolute
+	appDir, err = filepath.Abs(appDir)
+	errz.Fatal(err)
+	goDir, err = filepath.Abs(goDir)
+	errz.Fatal(err)
+	outputDir, err = filepath.Abs(outputDir)
+	errz.Fatal(err)
+
+	//Target Platform
+	m1, _ := strconv.ParseBool(cmd.Flag("mac").Value.String())
+	m2, _ := strconv.ParseBool(cmd.Flag("macos").Value.String())
+	mac := m1 || m2
+
+	linux, _ := strconv.ParseBool(cmd.Flag("linux").Value.String())
+
+	w1, _ := strconv.ParseBool(cmd.Flag("windows").Value.String())
+	w2, _ := strconv.ParseBool(cmd.Flag("win").Value.String())
+	windows := w1 || w2
+	
+	// Architectures
+	arch := make(map[string]bool)
+	arch["x64"], _ = strconv.ParseBool(cmd.Flag("x64").Value.String())			//GOARCH=amd64
+	arch["ia32"], _ = strconv.ParseBool(cmd.Flag("ia32").Value.String())		//GOARCH=386
+	arch["armv7l"], _ = strconv.ParseBool(cmd.Flag("armv7l").Value.String())	//GOARCH=arm GOARM=7
+	arch["arm64"], _ = strconv.ParseBool(cmd.Flag("arm64").Value.String())		//GOARCH=arm64
+
+	//Go build
+
+
+	//Create App and set values
+	app = application.New()
+	
+	//TODO allow selecting multiple values for arch and platform
+	if windows {
+		err = app.SetTarget("win")
+	} else if linux {
+		err = app.SetTarget("linux")
+	} else if mac{
+		err = app.SetTarget("mac")
+	}
+	errz.Log(err)
+
+	app.Arch = "x64" //default value
+	for k, v := range arch {
+		if v {
+			app.Arch = k
+		}
+	}
+
+	app.GoEntryPoint = goDir
+	app.AppDir = appDir
+	app.OutputDir = outputDir
+
+	log.Print(app)
+
+	return
+}
+
 func main() {
 	if err := rootCmd.Execute(); err != nil {
 		log.Error().Msg(err.Error())
 		os.Exit(1)
 	}
 }
-
-// TODO
-//
-// - gotron-builder deletes asset dir from .gotron

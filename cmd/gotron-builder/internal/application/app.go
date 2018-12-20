@@ -25,6 +25,7 @@ type App struct {
 	AppDir       string // Application loaded by electronjs
 	Target       string // Target system to build for
 	OutputDir    string // Outputdirectory for build output
+	Arch		 string // Architecture to build for
 }
 
 type GoBuildOptions struct {
@@ -169,7 +170,7 @@ func (app *App) buildElectron() (err error) {
 	default:
 	}
 
-	args := []string{target, "--x64", "--dir", "--projectDir=" + projDir}
+	args := []string{target, "--" + app.Arch, "--dir", "--projectDir=" + projDir}
 
 	runDir := gotronBuilderDirectory
 	command := filepath.Join("node_modules/.bin/", "electron-builder")
@@ -194,6 +195,19 @@ func (app *App) buildGoCode() (err error) {
 	default:
 	}
 
+	switch app.Arch {
+	case "x64":
+		env = append(env, "GOARCH=amd64")
+	case "ia32":
+		env = append(env, "GOARCH=386")
+	case "armv7l":
+		env = append(env, "GOARCH=arm")
+		env = append(env, "GOARM=7")
+	case "arm64":
+		env = append(env, "GOARCH=arm")
+	default:
+	}
+
 	fName := filepath.Base(runDir)
 
 	if app.Target == "win" {
@@ -204,7 +218,13 @@ func (app *App) buildGoCode() (err error) {
 	errz.Fatal(err)
 
 	from := filepath.Join(runDir, fName)
-	to := filepath.Join(app.GoEntryPoint, ".gotron/dist", app.Target+"-unpacked", fName)
+	var distFolder string
+	if app.Arch == "x64" {
+		distFolder = app.Target+"-unpacked"
+	} else {
+		distFolder = app.Target+"-"+app.Arch+"-unpacked"
+	}
+	to := filepath.Join(app.GoEntryPoint, ".gotron/dist", distFolder, fName)
 	return os.Rename(from, to)
 }
 
