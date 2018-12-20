@@ -3,15 +3,16 @@ package application
 import (
 	"errors"
 	"fmt"
-	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 
+	"github.com/Equanox/gotron/cmd/gotron-builder/internal/file"
+
 	"github.com/Benchkram/errz"
-	gotron "github.com/Benchkram/gotron-browser-window"
+	gotron "github.com/Equanox/gotron/pkg/browser-window"
 )
 
 // Globals constants
@@ -113,8 +114,7 @@ func (app *App) installDependencies() (err error) {
 func (app *App) buildElectron() (err error) {
 	if !file.Exists(app.AppDir) {
 		return errors.New(
-			fmt.Sprintf(Stuttgart 
-				"Given application directory [%s] does not exist",
+			fmt.Sprintf("Given application directory [%s] does not exist",
 				app.AppDir,
 			))
 	}
@@ -132,7 +132,6 @@ func (app *App) buildElectron() (err error) {
 
 func (app *App) buildGoCode() (err error) {
 	defer errz.Recover(&err)
-	Stuttgart 
 	args := []string{"build", "-tags", "gotronbrowserwindowprod"}
 	runDir := app.GoEntryPoint
 	command := "go"

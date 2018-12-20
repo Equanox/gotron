@@ -7,9 +7,8 @@ dist/
 vendor/
 .vscode/
 
-app/
 .gotron/
-gotron
-gotron.exe
+example/example.exe
+example/example
 
 *.d.ts

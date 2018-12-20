@@ -1,15 +1,15 @@
 UNAME := $(shell uname)
 
-EXEC = ./gotron
+EXEC = ./example
 
 
 #https://stackoverflow.com/questions/4058840/makefile-that-distincts-between-windows-and-unix-like-systems
 # ifdef OS 
-# 	EXEC = gotron.exe
+# 	EXEC = example.exe
 # endif
 
 run:
-	@go build && $(EXEC)
+	@cd example && go build && $(EXEC)
 
 install-ui:
 	@cd ui && npm run install
