@@ -18,7 +18,7 @@ build-ui:
 	@cd ui && npm run build
 
 builder:
-	@cd cmd/gotron-builder && go build -o ../../gotron-builder && cd ../../ && ./gotron-builder
+	@cd cmd/gotron-builder && go build -o ../../example/gotron-builder && cd ../../example/ && ./gotron-builder
 
 install-builder:
 	@cd cmd/gotron-builder && go install
