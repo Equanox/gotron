@@ -1,3 +1,4 @@
+// package application proviedes build pipeline for application with gotron api.
 package application
 
 import (
@@ -28,11 +29,12 @@ type App struct {
 	Arch         string // Architecture to build for
 }
 
-type GoBuildOptions struct {
+type goBuildOptions struct {
 	GoEnv        map[string]string
 	buildOptions map[string]string
 }
 
+//Run the gotron-builder pipeline
 func (app *App) Run() (err error) {
 	defer errz.Recover(&err)
 
@@ -61,6 +63,7 @@ func (app *App) Run() (err error) {
 	return err
 }
 
+//New application.App instance
 func New() *App {
 	app := App{}
 	err := app.SetTarget(runtime.GOOS)
@@ -98,10 +101,6 @@ func (app *App) makeTempDir() (err error) {
 func runCmd(runDir, command string, args ...string) (err error) {
 	defer errz.Recover(&err)
 
-	// fmt.Println(runDir)GoEntryPoint
-	// fmt.Println(command)
-	// fmt.Println(args)
-
 	cmd := exec.Command(command, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -118,10 +117,6 @@ func runCmd(runDir, command string, args ...string) (err error) {
 
 func runCmdEnv(runDir, command string, envVars []string, args ...string) (err error) {
 	defer errz.Recover(&err)
-
-	// fmt.Println(runDir)GoEntryPoint
-	// fmt.Println(command)
-	// fmt.Println(args)
 
 	cmd := exec.Command(command, args...)
 	cmd.Stdout = os.Stdout
