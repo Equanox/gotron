@@ -119,6 +119,11 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		errz.Fatal(err)
 	}
 
+	// If no UI folder is set use default ui files
+	if gbw.UIFolder == "" {
+		return
+	}
+
 	// UIFolder must contain a index.htm(l)
 	html := filepath.Join(gbw.UIFolder, "index.html")
 	htm := filepath.Join(gbw.UIFolder, "index.htm")
