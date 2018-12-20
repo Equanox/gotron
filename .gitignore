@@ -8,6 +8,9 @@ vendor/
 .vscode/
 
 .gotron/
+.gotron-builder/
+gotron-builder
+
 example/example.exe
 example/example
 example/gotron-builder

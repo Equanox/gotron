@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	gotron "github.com/Equanox/gotron/pkg/browser-window"
+	"github.com/Equanox/gotron"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-// +build gotronbrowserwindowprod
+// +build gotronpack
 
 package gotron
 

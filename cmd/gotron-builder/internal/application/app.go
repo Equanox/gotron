@@ -12,7 +12,7 @@ import (
 	"github.com/Benchkram/errz"
 	"github.com/otiai10/copy"
 
-	gotron "github.com/Equanox/gotron/pkg/browser-window"
+	"github.com/Equanox/gotron"
 )
 
 // Globals constants
@@ -24,7 +24,7 @@ type App struct {
 	GoEntryPoint string // Directory where go build is executed
 	AppDir       string // Application loaded by electronjs
 	Target       string // Target system to build for
-	OutputDir	 string // Outputdirectory for build output
+	OutputDir    string // Outputdirectory for build output
 }
 
 type GoBuildOptions struct {

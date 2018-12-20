@@ -1,11 +1,11 @@
-// +build !gotronbrowserwindowprod
+// +build !gotronpack
 
 package gotron
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Equanox/gotron/pkg/browser-window/internal/file"
+	"github.com/Equanox/gotron/internal/file"
 	"github.com/pkg/errors"
 	"net"
 	"net/http"
@@ -14,10 +14,15 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
+	"strings"
 
 	"github.com/otiai10/copy"
 
 	"github.com/Benchkram/errz"
+)
+
+const (
+	templateApplicationDir = "templates/app"
 )
 
 // Start starts an Instance of gotronbrowserwindow
@@ -110,8 +115,18 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 	gbwDirectory := filepath.Dir(filename)
 
 	if firstRun || forceInstall {
-		err = copy.Copy(gbwDirectory+"/app", gbw.AppDirectory)
+		templateDir := filepath.Join(gbwDirectory, templateApplicationDir)
+		err = copy.Copy(templateDir, gbw.AppDirectory)
 		errz.Fatal(err)
+	}
+
+	// No need to copy web application files
+	// when no ui folder is set.
+	// Also check for ".gotron/assets". This is the
+	// default directory when called from gotron-builder,
+	// avoids deleting asset dir by accident.
+	if gbw.UIFolder == "" || strings.Contains(gbw.UIFolder, ".gotron/assets") {
+		return
 	}
 
 	// UIFolder must contain a index.htm(l)
@@ -121,24 +136,11 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		return fmt.Errorf("index.htm(l) missing in %s", gbw.UIFolder)
 	}
 
-	// No need to copy web application files
-	// when no ui folder is set.
-	// Also check for ".gotron/assets". This is the
-	// default directory when called from gotron-builder,
-	// avoids deleting asset dir by accident.
-	src, err := filepath.Abs(gbw.UIFolder)
-	errz.Fatal(err)
-	dst, err := filepath.Abs(filepath.Join(gbw.AppDirectory, "assets"))
+	err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
 	errz.Fatal(err)
 
-	logger.Debug().Msgf("Src: %s\nDst: %s\n", src, dst)
-	if src != dst {
-		err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
-		errz.Fatal(err)
-
-		err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
-		errz.Fatal(err)
-	}
+	err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
+	errz.Fatal(err)
 
 	return nil
 }

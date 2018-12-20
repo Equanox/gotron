@@ -5,7 +5,7 @@ package gotron
 
 import (
 	"encoding/json"
-	"github.com/Equanox/gotron/pkg/browser-window/internal/runner"
+	"github.com/Equanox/gotron/internal/runner"
 	"net/http"
 	"sync"
 
