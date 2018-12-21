@@ -11,7 +11,7 @@ install:
   - sudo apt-key add Release.key
   - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ trusty main'
   - sudo apt-get update
-  - sudo apt-get install --install-recommends winehq-stable --allow-unautheticated
+  - sudo apt-get install --install-recommends --allow-unautheticated winehq-stable
 
 
 script:
