@@ -11,7 +11,8 @@ import (
 	"runtime"
 
 	"github.com/Benchkram/errz"
-	"github.com/puengel/copy"
+	//"github.com/puengel/copy"
+	"github.com/termie/go-shutil"
 
 	"github.com/Equanox/gotron"
 )
@@ -228,7 +229,12 @@ func (app *App) buildGoCode() (err error) {
 	}
 	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
 
-	err = copy.Copy(from, to)
+	// err = copy.Copy(from, to)
+	err = os.Remove(to)
+	errz.Fatal(err)
+
+	err = shutil.CopyFile(from, to, shutil.CopyTreeOptions{
+		Symlinks:true})
 	errz.Fatal(err)
 
 	err = os.Remove(from)
@@ -256,7 +262,13 @@ func (app *App) syncDistDirs() (err error) {
 	src := filepath.Join(".gotron/dist", distFolder)
 	dst := filepath.Join(app.OutputDir, "dist", distFolder, "electronjs")
 
-	err = copy.Copy(src, dst)
+	// err = copy.Copy(src, dst)
+	err = os.RemoveAll(dst)
+	errz.Fatal(err)
+
+	err = shutil.CopyTree(src, dst, shutil.CopyTreeOptions{
+		Symlinks:true})
+	errz.Fatal(err)
 	errz.Fatal(err)
 
 	err = os.RemoveAll(filepath.Dir(src))
