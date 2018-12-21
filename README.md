@@ -56,7 +56,7 @@ When everything worked you should see this
 gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. make sure it contains at least a index.html as entrypoint.
 
 Pass a path to your webUI on gotrons `New(uiFolder ...string)` function.
-```
+```go
 window, err := gotron.New("path/to/your/webui")
 if err != nil {
     panic(err)
@@ -67,7 +67,7 @@ if err != nil {
 To package a go application together with electornjs use `gotron-builder`.    
 
 #### Install gotron-builder
-```
+```sh
 git clone https://github.com/Equanox/gotron
 cd gotron/cmd/gotron-builder
 go install
@@ -84,13 +84,13 @@ By default it will implicitly use...
 * webUI from *.gotron/assets*
 
 To pack the code from **Quick Start** use
-```
+```sh
 gotron-builder
 ```
 in the root of your repo.
 
 Pass your go code and webUI explicitly.
-```
+```sh
 gotron-builder --go=your/go/dir --app=your/webapp/dir
 ```
 
