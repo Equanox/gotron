@@ -62,8 +62,8 @@ func Run(cmd *cobra.Command, args []string) {
 
 var rootCmd = &cobra.Command{
 	Use:   "gotron-builder",
-	Short: "building gotron",
-	Long:  `TODO`,
+	Short: "build executables using gotron",
+	Long:  ``,
 	Run:   Run,
 }
 
