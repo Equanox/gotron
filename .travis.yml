@@ -15,6 +15,9 @@ install:
 
 
 script:
-  - cd ui && npm run test
-  - go build
-  - ./gotron
+  - cd example/ui && npm run test
+  - make install-builder
+  - gotron-builder -g example -l --ia32
+  - cd example && gotron-builder
+  - gotron-builder -g example -a example/ui/build -w
+  - gotron-builder -g example --out example -w --ia32

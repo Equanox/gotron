@@ -12,10 +12,10 @@ run:
 	@cd example && go build && $(EXEC)
 
 install-ui:
-	@cd ui && npm run install
+	@cd example/ui && npm run install
 
 build-ui:
-	@cd ui && npm run build
+	@cd example/ui && npm run build
 
 builder:
 	@make install-builder
