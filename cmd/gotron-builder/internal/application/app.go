@@ -227,7 +227,13 @@ func (app *App) buildGoCode() (err error) {
 		distFolder = app.Target + "-" + app.Arch + ending
 	}
 	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
-	return os.Rename(from, to)
+
+	err = copy.Copy(from, to)
+	errz.Fatal(err)
+
+	err = os.Remove(from)
+	errz.Fatal(err)
+	return nil
 }
 
 // Will copy everythin from .gotron/dist to .dist
