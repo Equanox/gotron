@@ -40,10 +40,10 @@ func main() {
     
     // Open dev tools must be used after window.Start 
     // window.OpenDevTools()
- using flags.
- using flags.
- using flags.
-}using flags.
+    
+    // Wait for the application to close
+    <-done
+}
 ```
 On the first run it will download electronjs and stores it in *.gotron* in your working directory.     
 
