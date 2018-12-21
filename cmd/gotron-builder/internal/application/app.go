@@ -152,7 +152,7 @@ func (app *App) buildElectron() (err error) {
 	}
 	// contains
 
-	projDir, err := filepath.Abs(filepath.Join(app.GoEntryPoint, ".gotron/"))
+	projDir, err := filepath.Abs(".gotron/")
 
 	var target string
 	switch app.Target {
@@ -234,7 +234,7 @@ func (app *App) syncDistDirs() (err error) {
 		distFolder = app.Target + "-" + app.Arch + "-unpacked"
 	}
 
-	src := filepath.Join(app.GoEntryPoint, ".gotron/dist", distFolder)
+	src := filepath.Join(".gotron/dist", distFolder)
 	dst := filepath.Join(app.OutputDir, "dist", distFolder, "electronjs")
 
 	err = copy.Copy(src, dst)
