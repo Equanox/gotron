@@ -13,7 +13,7 @@ The deprecated gotron boilerplate code can still be accessed using the gotron-bo
 ## Quick Start
 On the first run it will download electronjs and stores it in *.gotron* in your working directory.
 
-```
+```go
 package main
 
 import (
