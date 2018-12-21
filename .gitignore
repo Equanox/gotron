@@ -2,7 +2,7 @@ node_modules/
 npm-debug.log
 package-lock.json
 build/
-!ui/build/
+!example/ui/build/
 dist/
 vendor/
 .vscode/

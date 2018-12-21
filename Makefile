@@ -27,3 +27,10 @@ install-builder:
 clean:
 	@-rm -r .gotron
 	@-rm -r .gotron-builder
+
+test-ci:
+	@make install-builder
+	@gotron-builder -g example -l --ia32
+  	@cd example && gotron-builder
+	@gotron-builder -g example -a example/ui/build -w
+  	@gotron-builder -g example --out example -w --ia32
