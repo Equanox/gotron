@@ -1,6 +1,6 @@
 language: go
 go:
-  - "1.10.x"
+  - "1.11.x"
 
 sudo: enabled
 
@@ -11,8 +11,11 @@ install:
   - sudo apt-key add Release.key
   - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ trusty main'
   - sudo apt-get update
-  - sudo apt-get install --install-recommends winehq-stable
+  - sudo apt-get --allow-unauthenticated install --install-recommends winehq-stable
 
 
 script:
-  - npm run test
+  - go get -d -v ./...
+  - cd example/ui && npm run test
+  - cd ../../
+  - make test-ci
