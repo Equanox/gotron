@@ -52,7 +52,7 @@ When everything worked you should see this
 ![Hello Gotron](https://raw.githubusercontent.com/equanox/gotron/master/doc/hello_gotron.png)
 
 ### Use Your Own WebUI
-Pass a folder containing your HTML/JS/CSS code. ElectronJS will use your index.html as entrypoint.
+gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. make sure it contains at least a index.html as entrypoint.
 
 Pass a path to your webui on gotrons `New(uiFolder ...string)` function.
 ```
@@ -63,7 +63,7 @@ if err != nil {
 ```
 
 ## Distribution/Packaging
-To package a go application together with electornjs we use `gotron-builder`.    
+To package a go application together with electornjs use `gotron-builder`.    
 
 #### Install gotron-builder
 ```
@@ -99,7 +99,7 @@ Read about the requirements for cross-compilation in [electron-builders](https:/
 - [x] Typescript-React example
 - [x] Vue.js example
 - [ ] Elm example
-- [ ] Flutter Hummingbird example
+- [ ] Flutter Hummingbird exampleREADME.md
 - [X] Hide nodejs/electron behind go api
 - [X] Create executables for Win, Linux, MacOS
 - [X] Hide nodejs/electron behind go api
