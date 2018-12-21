@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strconv"
 
 	"github.com/Benchkram/errz"
@@ -79,7 +80,12 @@ func (gbw *BrowserWindow) createStartParameters() (electronPath string, argument
 
 	exPath := filepath.Dir(ex)
 
-	electronPath, err = filepath.Abs(filepath.Join(exPath, "electronjs", "gotron-browser-window"))
+	var electronPath string
+	if runtime.GOOS == "darwin" {
+		electronPath, err = filepath.Abs(filepath.Join(exPath, "electronjs", "gotron-browser-window.app/Contents/MacOS/gotron-browser-window"))
+	} else {
+		electronPath, err = filepath.Abs(filepath.Join(exPath, "electronjs", "gotron-browser-window"))
+	}
 	errz.Fatal(err)
 	appPath := ""
 	logger.Debug().Msgf(appPath)

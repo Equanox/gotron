@@ -183,6 +183,7 @@ func (app *App) buildGoCode() (err error) {
 	switch app.Target {
 	case "win":
 		env = append(env, "GOOS=windows")
+		args = append(args, "-ldflags", "-H=windowsgui")
 	case "linux":
 		env = append(env, "GOOS=linux")
 	case "mac":
@@ -213,11 +214,17 @@ func (app *App) buildGoCode() (err error) {
 	errz.Fatal(err)
 
 	from := filepath.Join(runDir, fName)
+	var ending string
+	if app.Target == "mac" {
+		ending = ""
+	} else {
+		ending = "-unpacked"
+	}
 	var distFolder string
 	if app.Arch == "x64" {
-		distFolder = app.Target + "-unpacked"
+		distFolder = app.Target + ending
 	} else {
-		distFolder = app.Target + "-" + app.Arch + "-unpacked"
+		distFolder = app.Target + "-" + app.Arch + ending
 	}
 	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
 	return os.Rename(from, to)
@@ -227,11 +234,17 @@ func (app *App) buildGoCode() (err error) {
 func (app *App) syncDistDirs() (err error) {
 	defer errz.Recover(&err)
 
+	var ending string
+	if app.Target == "mac" {
+		ending = ""
+	} else {
+		ending = "-unpacked"
+	}
 	var distFolder string
 	if app.Arch == "x64" {
-		distFolder = app.Target + "-unpacked"
+		distFolder = app.Target + ending
 	} else {
-		distFolder = app.Target + "-" + app.Arch + "-unpacked"
+		distFolder = app.Target + "-" + app.Arch + ending
 	}
 
 	src := filepath.Join(".gotron/dist", distFolder)
