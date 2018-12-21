@@ -4,13 +4,15 @@
 A go api for electronjs.
 
 **IMPORTANT NOTICE:**     
-This repository has undergone a complete rewrite. It is no longer a boilerplate application, it rather is a full electronjs api in go containing a golang <=> nodejs bridge. You can now `go get` this package and import it from your go application. 
+This repository has undergone a complete rewrite. It is no longer a boilerplate application, it rather is a full electronJS api in go containing a golang <=> nodejs bridge. You can now `go get` this package and import it from your go application. 
 The deprecated gotron boilerplate code can still be accessed using the gotron-boilerplate branch. Be aware that it wont't be maintained and will disapear without notice.    
 
 ## Prerequisites
 **go**, **nodejs** and **npm** must be available on your system.  
 
 ## Quick Start
+On the first run it will download electronjs and stores it in *.gotron* in your working directory.
+
 ```
 package main
 
@@ -44,8 +46,7 @@ func main() {
     // Wait for the application to close
     <-done
 }
-```
-On the first run it will download electronjs and stores it in *.gotron* in your working directory.     
+```     
 
 When everything worked you should see this
 
@@ -74,22 +75,28 @@ go install
 make sure gotron-builder is in your $PATH.
 
 #### Using  gotron-builder
-gotron-builder expects a directory containing a golang main package for the go executable and a directory containing your webui with at least a index.html. 
+`gotron-builder` expects...
+* a directory with a golang main package 
+* and a directory with a webUI containing at least a index.html
 
-Use 
+By default it will implicitly use...
+* golang main package from the current directory
+* webUI from *.gotron/assets*
+
+To pack the code from **Quick Start** use
 ```
 gotron-builder
 ```
 in the root of your repo.
 
-By default it will look in .gotron/assets for your web ui, and uses the main package from the current directory. You can pass it your go code and webui explicitly.
+Pass your go code and webUI explicitly.
 ```
 gotron-builder --go=your/go/dir --app=your/webapp/dir
 ```
 
 For cross compilation you can use the same flags as electron-builder would expect them
 ```
-gotron-builder -win 
+gotron-builder --win 
 ```
 Read about the requirements for cross-compilation in [electron-builders](https://github.com/electron-userland/electron-builder) documentation.
 
@@ -99,18 +106,17 @@ Read about the requirements for cross-compilation in [electron-builders](https:/
 - [x] Typescript-React example
 - [x] Vue.js example
 - [ ] Elm example
-- [ ] Flutter Hummingbird exampleREADME.md
+- [ ] Flutter Hummingbird example
 - [X] Hide nodejs/electron behind go api
 - [X] Create executables for Win, Linux, MacOS
 - [X] Hide nodejs/electron behind go api
-- [ ] Msgs between golang and electron renderer process,
+- [ ] Msgs between golang and electronJS renderer process,
       abstracted in a javascript/typescript package
-- [ ] Implement complete BrowserWindow api
+- [ ] Implement complete BrowserWindow api see => [BrowserWindow.md](BrowserWindow.md)
 - [ ] Implement complete electron-builder api in gotron-builder
 
 ## Sponsors
-<a href="https://benchkram.de"><img src="doc/benchkram.png" alt="benchkram-logo" width="50"/></a>
-
+<a href="https://benchkram.de"><img src="https://raw.githubusercontent.com/equanox/gotron/master/doc/benchkram.png" alt="benchkram-logo" width="50"/></a>
 
 # License
 MIT  
