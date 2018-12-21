@@ -111,6 +111,11 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	app = application.New()
 
 	//TODO allow selecting multiple values for arch and platform
+	if (windows && linux) || (windows && mac) || (mac && linux) {
+		log.Error().Msg("Only one target platform is allowed at a time.")
+		return
+	}
+
 	if windows {
 		err = app.SetTarget("win")
 	} else if linux {
@@ -120,11 +125,18 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	}
 	errz.Log(err)
 
+	archCount := 0
 	app.Arch = "x64" //default value
 	for k, v := range arch {
 		if v {
 			app.Arch = k
+			archCount++
 		}
+	}
+
+	if archCount > 1 {
+		log.Error().Msg("Only one target architecture is allowed at a time.")
+		return
 	}
 
 	app.GoEntryPoint = goDir
