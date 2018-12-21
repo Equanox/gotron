@@ -75,10 +75,6 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	appDir := cmd.Flag("app").Value.String()
 	outputDir := cmd.Flag("out").Value.String()
 
-	if (goDir != ".") && ((appDir == ".gotron/assets/") || (appDir == ".gotron/assets")) {
-		appDir = filepath.Join(goDir, appDir)
-	}
-
 	// make paths absolute
 	appDir, err = filepath.Abs(appDir)
 	errz.Fatal(err)
