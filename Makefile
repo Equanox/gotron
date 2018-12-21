@@ -19,7 +19,7 @@ build-ui:
 
 builder:
 	@make install-builder
-	@gotron-builder -g=example
+	@gotron-builder -g=example --linux
 	
 install-builder:
 	@cd cmd/gotron-builder && go install

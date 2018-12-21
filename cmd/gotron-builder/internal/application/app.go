@@ -4,15 +4,18 @@ package application
 import (
 	"errors"
 	"fmt"
-	"github.com/Equanox/gotron/internal/file"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 
+	"github.com/Equanox/gotron/internal/file"
+	"github.com/otiai10/copy"
+	"github.com/rs/zerolog/log"
+
 	"github.com/Benchkram/errz"
 	//"github.com/puengel/copy"
-	"github.com/termie/go-shutil"
+	shutil "github.com/termie/go-shutil"
 
 	"github.com/Equanox/gotron"
 )
@@ -230,11 +233,14 @@ func (app *App) buildGoCode() (err error) {
 	to := filepath.Join(app.OutputDir, "dist", distFolder, fName)
 
 	// err = copy.Copy(from, to)
-	err = os.Remove(to)
-	errz.Fatal(err)
+	if file.Exists(to) {
+		err = os.Remove(to)
+		errz.Fatal(err)
+	}
 
-	err = shutil.CopyFile(from, to, shutil.CopyTreeOptions{
-		Symlinks:true})
+	log.Info().Msg(from)
+	log.Info().Msg(to)
+	_, err = shutil.Copy(from, to, true)
 	errz.Fatal(err)
 
 	err = os.Remove(from)
@@ -262,12 +268,15 @@ func (app *App) syncDistDirs() (err error) {
 	src := filepath.Join(".gotron/dist", distFolder)
 	dst := filepath.Join(app.OutputDir, "dist", distFolder, "electronjs")
 
-	// err = copy.Copy(src, dst)
+	err = copy.Copy(src, dst)
 	err = os.RemoveAll(dst)
 	errz.Fatal(err)
 
-	err = shutil.CopyTree(src, dst, shutil.CopyTreeOptions{
-		Symlinks:true})
+	options := &shutil.CopyTreeOptions{Symlinks: true,
+		Ignore:                 nil,
+		CopyFunction:           shutil.Copy,
+		IgnoreDanglingSymlinks: false}
+	err = shutil.CopyTree(src, dst, options)
 	errz.Fatal(err)
 	errz.Fatal(err)
 
