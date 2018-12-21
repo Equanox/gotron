@@ -16,7 +16,7 @@ github.com/magiconair/properties v1.8.0/go.mod h1:PppfXfuXeibc/6YijjN8zIbojt8czP
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.4/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
-github.com/otiai10/copy v0.0.0-20180813032824-7e9a647135a1 h1:A7kMXwDPBTfIVRv2l6XV3U6Su3SzLUzZjxnDDQVZDIY=
+github.com/otiai10/copy v0.0.0-20180813032824-7e9a647135a1 h1:QJNFh2XEtzwESNsblZgBuCsv38DU5vC/u+5DNBekwJM=
 github.com/otiai10/copy v0.0.0-20180813032824-7e9a647135a1/go.mod h1:pXzZSDlN+HPzSdyIBnKNN9ptD9Hx7iZMWIJPTwo4FPE=
 github.com/otiai10/mint v1.2.1/go.mod h1:YnfyPNhBvnY8bW4SGQHCs/aAFhkgySlMZbrF5U0bOVw=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=

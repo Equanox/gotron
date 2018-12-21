@@ -55,7 +55,7 @@ When everything worked you should see this
 ### Use Your Own WebUI
 gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. make sure it contains at least a index.html as entrypoint.
 
-Pass a path to your webui on gotrons `New(uiFolder ...string)` function.
+Pass a path to your webUI on gotrons `New(uiFolder ...string)` function.
 ```
 window, err := gotron.New("path/to/your/webui")
 if err != nil {

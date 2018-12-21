@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	window, err := gotron.New()
+	window, err := gotron.New("ui/build")
 	if err != nil {
 		log.Println(err)
 		return
