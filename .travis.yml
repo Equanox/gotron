@@ -11,10 +11,11 @@ install:
   - sudo apt-key add Release.key
   - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ trusty main'
   - sudo apt-get update
-  - sudo apt-get --allow-unautheticated install --install-recommends winehq-stable
+  - sudo apt-get --allow-unauthenticated install --install-recommends winehq-stable
 
 
 script:
+  - go get -d -v ./...
   - cd example/ui && npm run test
   - make install-builder
   - gotron-builder -g example -l --ia32
