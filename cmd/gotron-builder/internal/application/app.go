@@ -11,7 +11,7 @@ import (
 	"runtime"
 
 	"github.com/Benchkram/errz"
-	"github.com/otiai10/copy"
+	"github.com/puengel/copy"
 
 	"github.com/Equanox/gotron"
 )
