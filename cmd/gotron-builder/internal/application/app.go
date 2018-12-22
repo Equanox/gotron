@@ -11,10 +11,8 @@ import (
 
 	"github.com/Equanox/gotron/internal/file"
 	"github.com/otiai10/copy"
-	"github.com/rs/zerolog/log"
 
 	"github.com/Benchkram/errz"
-	//"github.com/puengel/copy"
 	shutil "github.com/termie/go-shutil"
 
 	"github.com/Equanox/gotron"
@@ -238,8 +236,6 @@ func (app *App) buildGoCode() (err error) {
 		errz.Fatal(err)
 	}
 
-	log.Info().Msg(from)
-	log.Info().Msg(to)
 	_, err = shutil.Copy(from, to, true)
 	errz.Fatal(err)
 
