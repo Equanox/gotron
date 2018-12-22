@@ -14,7 +14,6 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"github.com/Benchkram/errz"
-	//"github.com/puengel/copy"
 	shutil "github.com/termie/go-shutil"
 
 	"github.com/Equanox/gotron"
