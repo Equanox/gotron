@@ -11,7 +11,6 @@ import (
 
 	"github.com/Equanox/gotron/internal/file"
 	"github.com/otiai10/copy"
-	"github.com/rs/zerolog/log"
 
 	"github.com/Benchkram/errz"
 	shutil "github.com/termie/go-shutil"
