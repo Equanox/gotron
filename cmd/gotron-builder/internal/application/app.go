@@ -237,8 +237,6 @@ func (app *App) buildGoCode() (err error) {
 		errz.Fatal(err)
 	}
 
-	log.Info().Msg(from)
-	log.Info().Msg(to)
 	_, err = shutil.Copy(from, to, true)
 	errz.Fatal(err)
 
