@@ -1,12 +1,4 @@
-UNAME := $(shell uname)
-
 EXEC = ./example
-
-
-#https://stackoverflow.com/questions/4058840/makefile-that-distincts-between-windows-and-unix-like-systems
-# ifdef OS 
-# 	EXEC = example.exe
-# endif
 
 run:
 	@cd example && go build && $(EXEC)
@@ -28,9 +20,16 @@ clean:
 	@-rm -r .gotron
 	@-rm -r .gotron-builder
 
+################ test ################
 test-ci:
 	@make install-builder
 	@gotron-builder -g example -l --ia32
 	@cd example && gotron-builder
 	@gotron-builder -g example -a example/ui/build -w
 	@gotron-builder -g example --out example -w --ia32
+
+################ release #############
+release-bin:
+	@-mkdir release 
+	@-rm -r release/*
+	@go build 
