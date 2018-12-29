@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Benchkram/errz"
 	"github.com/Equanox/gotron/cmd/gotron-builder/internal/application"
 	"os"
@@ -12,27 +13,31 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var gotronBuilderVersion = "undefined"
+
 func init() {
+	// General
 	rootCmd.PersistentFlags().StringP("go", "g", ".",
 		"Go entrypoint, must point to a directory containing a main.go")
 	rootCmd.PersistentFlags().StringP("app", "a", ".gotron/assets/",
 		"Application directory, must point to a directory containing a webapp starting at index.html")
-
 	rootCmd.PersistentFlags().StringP("out", "", ".",
 		"Application output directory. Build output will be put in dist/* inside this directory.")
+	rootCmd.PersistentFlags().BoolP("version", "v", false,
+		"Returns gotron-builder version")
 
 	// Electron-Builder parameters
 
-	//Platforms
+	// Platforms
 
-	//Build for macOS
+	// Build for macOS
 	rootCmd.PersistentFlags().BoolP("mac", "m", false, "Build for macOS")
 	rootCmd.PersistentFlags().BoolP("macos", "o", false, "Build for macOS")
 
-	//Build for linux
+	// Build for linux
 	rootCmd.PersistentFlags().BoolP("linux", "l", false, "Build for Linux")
 
-	//Build for windows
+	// Build for windows
 	rootCmd.PersistentFlags().BoolP("win", "w", false, "Build for Windows")
 	rootCmd.PersistentFlags().BoolP("windows", "", false, "Build for Windows")
 
@@ -74,6 +79,7 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	goDir := cmd.Flag("go").Value.String()
 	appDir := cmd.Flag("app").Value.String()
 	outputDir := cmd.Flag("out").Value.String()
+	version, _ := strconv.ParseBool(cmd.Flag("version").Value.String())
 
 	// make paths absolute
 	appDir, err = filepath.Abs(appDir)
@@ -101,12 +107,18 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 	arch["armv7l"], _ = strconv.ParseBool(cmd.Flag("armv7l").Value.String()) //GOARCH=arm GOARM=7
 	arch["arm64"], _ = strconv.ParseBool(cmd.Flag("arm64").Value.String())   //GOARCH=arm64
 
-	//Go build
+	// Go build
 
-	//Create App and set values
+	// If version is set just print it and exit.
+	if version {
+		fmt.Printf("%s \n", gotronBuilderVersion)
+		os.Exit(0)
+	}
+
+	// Create App and set values
 	app = application.New()
 
-	//TODO allow selecting multiple values for arch and platform
+	// TODO allow selecting multiple values for arch and platform
 	if (windows && linux) || (windows && mac) || (mac && linux) {
 		log.Error().Msg("Only one target platform is allowed at a time.")
 		return

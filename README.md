@@ -8,7 +8,7 @@ This repository has undergone a complete rewrite. It is no longer a boilerplate 
 The deprecated gotron boilerplate code can still be accessed using the gotron-boilerplate branch. Be aware that it wont't be maintained and will disapear without notice.    
 
 ## Prerequisites
-**go**, **nodejs** and **npm** must be available on your system.  
+**go1.11** with modules enabled, **nodejs** and **npm** must be available on your system.
 
 ## Quick Start
 On the first run it will download electronjs and stores it in *.gotron* in your working directory.
@@ -17,7 +17,7 @@ On the first run it will download electronjs and stores it in *.gotron* in your 
 package main
 
 import (
-	gotron "github.com/Equanox/gotron"
+	"github.com/Equanox/gotron"
 )
 
 func main() {
@@ -67,16 +67,12 @@ if err != nil {
 To package a go application together with electornjs use `gotron-builder`.    
 
 #### Install gotron-builder
-```sh
-git clone https://github.com/Equanox/gotron
-cd gotron/cmd/gotron-builder
-go install
-```
-make sure gotron-builder is in your $PATH.
+We provide executables for Linux, MacOS and Windows.    
+Download the newest release from [https://github.com/Equanox/gotron/releases](https://github.com/Equanox/gotron/releases) and add it to your $PATH.
 
 #### Using  gotron-builder
-`gotron-builder` expects...
-* a directory with a golang main package 
+It expects...
+* a directory containing a golang main package 
 * and a directory with a webUI containing at least a index.html
 
 By default it will implicitly use...
