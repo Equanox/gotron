@@ -25,14 +25,14 @@ clean:
 test-ci:
 	@-rm -r .gotron .gotron-builder example/.gotron example/.gotron-builder
 
-	@make release
-	@make release-clean
-
 	make install-builder
 	gotron-builder -g example -l --ia32
 	cd example && gotron-builder
 	gotron-builder -g example -a example/ui/build -w
 	gotron-builder -g example --out example -w --ia32
+
+	@make release
+	@make release-clean
 
 test-clean-build:
 	@docker build -f test/Dockerfile .
@@ -43,6 +43,8 @@ release:
 	@-mkdir release 
 	@-rm release/*
 	
+	@go get ./...
+
 	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
 	go build -o ./release/gotron-builder-amd64-linux \
 	-ldflags="-X main.gotronBuilderVersion=$(VERSION)" \

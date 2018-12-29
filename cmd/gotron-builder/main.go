@@ -111,7 +111,7 @@ func parseFlags(cmd *cobra.Command) (app *application.App, err error) {
 
 	// If version is set just print it and exit.
 	if version {
-		fmt.Printf("%s \n", gotronBuilderVersion)
+		fmt.Printf("goton-builder %s \n", gotronBuilderVersion)
 		os.Exit(0)
 	}
 
