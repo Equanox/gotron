@@ -18,4 +18,4 @@ script:
   - go get -d -v ./...
   - cd example/ui && npm run test
   - cd ../../
-  - make test-ci
+  - env GO111MODULE=on make test-ci
