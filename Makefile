@@ -23,8 +23,8 @@ clean:
 
 ################ test ################
 test-ci:
-	@rm -r .gotron .gotron-builder example/.gotron example/.gotron-builder
-	
+	@-rm -r .gotron .gotron-builder example/.gotron example/.gotron-builder
+
 	@make release
 	@make release-clean
 
