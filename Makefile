@@ -59,4 +59,4 @@ release:
 	-a cmd/gotron-builder/main.go
 
 release-clean:
-	@rm -r release
+	@-rm -r release
