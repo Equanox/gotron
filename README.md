@@ -17,7 +17,7 @@ On the first run it will download electronjs and stores it in *.gotron* in your 
 package main
 
 import (
-	"github.com/Equanox/gotron"
+    "github.com/Equanox/gotron"
 )
 
 func main() {
@@ -50,7 +50,8 @@ func main() {
 
 When everything worked you should see this
 
-![Hello Gotron](https://raw.githubusercontent.com/equanox/gotron/master/doc/hello_gotron.png)
+<img src="doc/hello_gotron.png" alt="Hello Gotron" width="400px"/>
+
 
 ### Use Your Own WebUI
 gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. make sure it contains at least a index.html as entrypoint.
@@ -104,7 +105,7 @@ Read about the requirements for cross-compilation in [electron-builders](https:/
 - [ ] Elm example
 - [ ] Flutter Hummingbird example
 - [X] Hide nodejs/electron behind go api
-- [X] Create executables for Win, Linux, MacOS
+- [X] Create executables for Win, Linux, MacOSbenchkram-logo
 - [X] Hide nodejs/electron behind go api
 - [ ] Msgs between golang and electronJS renderer process,
       abstracted in a javascript/typescript package
