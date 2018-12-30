@@ -6,6 +6,7 @@ build/
 dist/
 vendor/
 .vscode/
+release/
 
 .gotron/
 .gotron-builder/
