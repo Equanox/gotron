@@ -56,7 +56,7 @@ release:
 	-a cmd/gotron-builder/main.go
 	
 	@GOOS=windows GOARCH=amd64 CGO_ENABLED=0 \
-	go build -o ./release/gotron-builder-amd64-win \
+	go build -o ./release/gotron-builder-amd64-win.exe \
 	-ldflags="-X main.gotronBuilderVersion=$(VERSION)" \
 	-a cmd/gotron-builder/main.go
 
