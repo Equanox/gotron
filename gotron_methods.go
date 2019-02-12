@@ -56,11 +56,14 @@ func (gbw *BrowserWindow) CreateAppStructure(forceInstall ...bool) (err error) {
 	}
 	defer errz.Recover(&err)
 
-	//Copy Electron Files
+	err = os.MkdirAll(gbw.AppDirectory, 0777)
+	errz.Fatal(err)
+
+	// Copy Electron Files
 	err = gbw.copyElectronApplication(_forceInstall)
 	errz.Fatal(err)
 
-	//Run npm install
+	// Run npm install
 	err = gbw.runNPM(_forceInstall)
 	errz.Fatal(err)
 
@@ -139,15 +142,15 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 	src, err := filepath.Abs(gbw.UIFolder)
 	errz.Fatal(err)
 	dst, err := filepath.Abs(filepath.Join(gbw.AppDirectory, "assets"))
- 	errz.Fatal(err)
- 
- 	if src != dst {
- 		err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
- 		errz.Fatal(err)
- 
- 		err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
- 		errz.Fatal(err)
- 	}
+	errz.Fatal(err)
+
+	if src != dst {
+		err = os.RemoveAll(filepath.Join(gbw.AppDirectory, "assets"))
+		errz.Fatal(err)
+
+		err = copy.Copy(gbw.UIFolder, filepath.Join(gbw.AppDirectory, "assets"))
+		errz.Fatal(err)
+	}
 
 	return nil
 }
