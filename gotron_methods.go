@@ -119,7 +119,7 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 
 	if firstRun || forceInstall {
 		templateDir := filepath.Join(gbwDirectory, templateApplicationDir)
-		err = copy.Copy(templateDir, gbw.AppDirectory)
+		err = copy.Perm(templateDir, gbw.AppDirectory, 0777, 0644)
 		errz.Fatal(err)
 	}
 
