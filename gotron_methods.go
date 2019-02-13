@@ -5,8 +5,6 @@ package gotron
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Equanox/gotron/internal/file"
-	"github.com/pkg/errors"
 	"net"
 	"net/http"
 	"os"
@@ -15,7 +13,10 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/otiai10/copy"
+	"github.com/Equanox/gotron/internal/file"
+	"github.com/pkg/errors"
+
+	"github.com/puengel/copy"
 
 	"github.com/Benchkram/errz"
 )
