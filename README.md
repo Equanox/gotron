@@ -1,11 +1,7 @@
 [![Build Status](https://travis-ci.org/Equanox/gotron.svg?branch=master)](https://travis-ci.org/Equanox/gotron)
 
 # Gotron
-A go api for electronjs.
-
-**IMPORTANT NOTICE:**     
-This repository has undergone a complete rewrite. It is no longer a boilerplate application, it rather is a full electronJS api in go containing a golang <=> nodejs bridge. You can now `go get` this package and import it from your go application. 
-The deprecated gotron boilerplate code can still be accessed using the gotron-boilerplate branch. Be aware that it wont't be maintained and will disapear without notice.    
+Go api for ElectronJS.
 
 ## Prerequisites
 **go1.11** with modules enabled, **nodejs** and **npm** must be available on your system.
