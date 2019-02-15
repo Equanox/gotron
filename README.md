@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Equanox/gotron.svg?branch=master)](https://travis-ci.org/Equanox/gotron)
 
 # Gotron
-Go api for ElectronJS.
+Go Api for ElectronJS.
 
 ## Prerequisites
 **go1.11** with modules enabled, **nodejs** and **npm** must be available on your system.
