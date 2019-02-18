@@ -1,4 +1,6 @@
 require("./style.css");
+var W3CWebSocket = require('websocket').w3cwebsocket;
+const backendPath = '/web/app/events'
 
 window.onload = function () {
   var container = document.createElement("div");
@@ -14,6 +16,23 @@ window.onload = function () {
   port.className = 'topic';
   port.innerHTML = `Backend Port: ${global.backendPort}`;
   container.appendChild(port);
+
+  //websocket
+  client = new W3CWebSocket('ws://127.0.0.1:' + global.backendPort + backendPath, [])
+  
+
+  client.onmessage = function(message){
+    
+    console.log(message);
+    console.log(JSON.parse(message));
+  };
+
+  //button for websocket test
+  var button = document.createElement("button");
+  var t = document.createTextNode("click me");
+  button.appendChild(t);
+  button.onclick = function(){client.send(JSON.stringify({event: "hello", data: "Hello from frontend"}))};
+  container.appendChild(button);
 
   document.body.appendChild(container);
 }

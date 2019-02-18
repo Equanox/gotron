@@ -24,6 +24,12 @@ func main() {
 		return
 	}
 
+	window.On("hello", func(i interface{}) {
+		log.Println("received hello")
+		log.Println(i)
+		window.Send("hello From backend", i)
+	})
+
 	//window.OpenDevTools()
 
 	<-done
