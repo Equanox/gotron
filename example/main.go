@@ -24,10 +24,12 @@ func main() {
 		return
 	}
 
-	window.On("hello", func(i interface{}) {
+	onEvent := gotron.Event{Event: "hello"}
+
+	window.On(&onEvent, func(bin []byte) {
 		log.Println("received hello")
-		log.Println(i)
-		window.Send("hello From backend", i)
+		log.Println(bin)
+		window.Send(&gotron.Event{Event: "hello From backend"})
 	})
 
 	//window.OpenDevTools()

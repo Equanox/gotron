@@ -60,6 +60,63 @@ if err != nil {
 }
 ```
 
+### Communicate between backend and frontend
+
+Frontend to backend communication is realized through javascript like event driven apporach.
+
+#### Backend
+
+Handle incoming events
+```go
+window.On(&gotron.Event{Event: "event-name"}, func(bin []byte) {
+	//Handle event here
+}
+```
+
+Send event to frontend
+```go
+// Create a custom event struct that has a pointer to gotron.Event
+type CustomEvent struct {
+    *gotron.Event
+    CustomAttribute string 'json:"AtrNameInFrontend"'
+}
+
+window.Send(&CustomEvent{
+    Event: &gotron.Event{Event: "event-name"},
+    CustomAttribute: "Hello World!",
+    })
+```
+
+#### Frontend
+
+In frontend a websocket needs to be created. Adress is always localhost and port can be taken from global variable `global.backendPort`
+```javascript
+let ws = new Websocket("ws://localhost:" + global.backendPort + "/web/app/events");
+```
+
+Handle incoming events
+```javascript
+// This is being called for all incoming messages
+ws.onmessage = (message) => {
+    let obj = JSON.parse(message.data);
+    
+    // event name
+    console.log(obj.event);
+
+    // event data
+    console.log(obj.AtrNameInFrontend);
+}
+```
+
+Send event to backend
+
+```javascript
+ws.send(JSON.stringify({
+    "event": "event-name",
+    "AtrNameInFrontend": "Hello World!",
+}))
+```
+
 ## Distribution/Packaging
 To package a go application together with electornjs use `gotron-builder`.    
 
