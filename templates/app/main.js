@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 var WebSocketClient = require('websocket').client;
+const path = require('path');
 var client = new WebSocketClient();
 var socket = null;
 
@@ -22,6 +23,9 @@ function createWindow() {
   // Get BrowserWindow options from process arguments
   let opts = process.argv[3]
   opts = JSON.parse(opts)
+
+  // Replace Preload Script
+  opts.webPreferences.preload = path.resolve(`${__dirname}/preload.js`);
 
   // Create the browser window.
   win = new BrowserWindow(opts)
@@ -115,7 +119,14 @@ client.on('connect', function (connection) {
 // Port from process arguments
 let port = process.argv[2]
 
+console.log("Main.js")
+console.log(port)
+
 client.connect('ws://127.0.0.1:' + port + browserWindowEvents, []);
+
+ipc.on('backend-port-request', (event, arg) => {
+  event.returnValue = port;
+});
 
 
 // This array represents the map of functions which can be called by go Event messages.

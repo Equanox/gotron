@@ -11,5 +11,7 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "websocket": "^1.0.28"
+  }
 }

@@ -5,6 +5,7 @@ package gotron
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/Equanox/gotron/internal/runner"
 	"net/http"
 	"sync"
@@ -13,6 +14,18 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/satori/go.uuid"
 )
+
+type Event struct {
+	Event string `json:"event,omitempty"`
+}
+
+func (e *Event) EventString() string {
+	return e.Event
+}
+
+type EventInterface interface {
+	EventString() string
+}
 
 // SocketEvent event
 type SocketEvent struct {
@@ -39,12 +52,13 @@ type optionsQueueElement struct {
 // BrowserWindow Instance for a gotronbrowserwindow
 type BrowserWindow struct {
 	Configuration
-	UseZerolog       bool
-	Running          bool
-	handledMessages  map[string]func(interface{})
-	WindowOptions    WindowOptions
-	optionsQueue     chan optionsQueueElement
-	optionsReturnMap sync.Map
+	UseZerolog            bool
+	Running               bool
+	handledMessages       map[string]func([]byte)         // Use sync map or mutexes
+	onSocketCommunication map[string]*socketCommunication // Use sync map or mutexes
+	WindowOptions         WindowOptions
+	optionsQueue          chan optionsQueueElement
+	optionsReturnMap      sync.Map
 }
 
 // New creates a new gotronbrowserwindow,
@@ -64,10 +78,11 @@ func New(uiFolders ...string) (gbw *BrowserWindow, err error) {
 			AppDirectory: ".gotron/",
 			UIFolder:     uiFolder,
 		},
-		UseZerolog:      false,
-		Running:         false,
-		handledMessages: make(map[string]func(interface{})),
-		optionsQueue:    make(chan optionsQueueElement, 100),
+		UseZerolog:            false,
+		Running:               false,
+		handledMessages:       make(map[string]func([]byte)),
+		onSocketCommunication: make(map[string]*socketCommunication),
+		optionsQueue:          make(chan optionsQueueElement, 100),
 		//Set default WindowOption bools
 		WindowOptions: WindowOptions{
 			Width:          800,
@@ -171,10 +186,16 @@ func (gbw *BrowserWindow) mainEventSocket(w http.ResponseWriter, r *http.Request
 				logger.Debug().Msgf("Event not in return map")
 				break
 			}
-			ch.(chan SocketEvent) <- event
+			ch.(chan SocketEvent) <- event // This blocks when no one is listening???
 			gbw.optionsReturnMap.Delete(event.ID)
 		}
 	}
+
+}
+
+// socketCommunication send/receive on websocket connections
+type socketCommunication struct {
+	Send chan EventInterface
 }
 
 //Handles msgs to communicate with nodejs electron for rampup & shutdown
@@ -186,10 +207,44 @@ func (gbw *BrowserWindow) onSocket(w http.ResponseWriter, r *http.Request) {
 	errz.Fatal(err)
 	defer c.Close()
 
+	communication := &socketCommunication{
+		Send: make(chan EventInterface),
+	}
+
+	//Writer
+	writerTask := runner.Go(func(stop runner.StopChan, finish runner.Finish) {
+		for {
+			select {
+			case binMsg := <-communication.Send:
+				err = c.WriteJSON(binMsg)
+				errz.Log(err)
+			case _, ok := <-stop:
+				if !ok {
+					finish()
+					return
+				}
+
+			}
+		}
+	})
+	defer func() {
+		writerTask.Stop()
+		writerTask.Wait()
+	}()
+
+	id, _ := uuid.NewV4()
+	gbw.onSocketCommunication[id.String()] = communication
+	defer func() {
+		delete(gbw.onSocketCommunication, id.String())
+	}()
+
 	for {
-		var event SocketEvent
+		var event Event
 		_, message, err := c.ReadMessage()
-		errz.Fatal(err, "ElectronSocket: [err]")
+		if err != nil {
+			errz.Log(err, "ElectronSocket: [err]")
+			break
+		}
 
 		//Handle Message
 		err = json.Unmarshal(message, &event)
@@ -198,14 +253,15 @@ func (gbw *BrowserWindow) onSocket(w http.ResponseWriter, r *http.Request) {
 
 		//Execute event function if exists
 		if f, ok := gbw.handledMessages[event.Event]; ok {
-			f(event.Data)
+			f(message)
 		} else {
 			logger.Debug().Msgf("Event not registered: %s", event.Event)
 		}
 	}
+
 }
 
-//Globals
+// Globals
 var done = make(chan bool, 1)      //Wait for Shutdown signal over websocket
 var upgrader = websocket.Upgrader{ //Upgrader for websockets
 	ReadBufferSize:  1024,
@@ -216,15 +272,25 @@ var upgrader = websocket.Upgrader{ //Upgrader for websockets
 	},
 }
 
-//On register handler for messages incoming from js frontend
-func (gbw *BrowserWindow) On(message string, handler func(interface{})) {
-	logger.Debug().Msgf("Adding handler for message: " + message)
-	gbw.handledMessages[message] = handler
+// On register handler for messages incoming from js frontend
+func (gbw *BrowserWindow) On(msg EventInterface, handler func(bin []byte)) {
+	logger.Debug().Msgf("Adding handler for message: " + msg.EventString())
+
+	//TODO check if a handler was already registered.
+	gbw.handledMessages[msg.EventString()] = handler
 }
 
-//Send send message (with data) to js frontend
-func (gbw *BrowserWindow) Send(message string, data interface{}) {
-	logger.Debug().Msgf("Sending message: " + message)
-	logger.Debug().Msgf("Content: ")
-	logger.Debug().Msgf("%+v\n", data)
+// Send send message (with data) to js frontend
+func (gbw *BrowserWindow) Send(msg EventInterface) (err error) {
+	var send bool
+	for _, v := range gbw.onSocketCommunication {
+		v.Send <- msg
+		send = true
+	}
+
+	if !send {
+		return fmt.Errorf("Could not send message, probably no websocket connection")
+	}
+
+	return nil
 }
