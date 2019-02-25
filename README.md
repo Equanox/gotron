@@ -91,7 +91,7 @@ window.Send(&CustomEvent{
 
 In frontend a websocket needs to be created. Adress is always localhost and port can be taken from global variable `global.backendPort`
 ```javascript
-let ws = new Websocket("ws://localhost:" + global.backendPort + "/web/app/events");
+let ws = new WebSocket("ws://localhost:" + global.backendPort + "/web/app/events");
 ```
 
 Handle incoming events
