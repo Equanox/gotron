@@ -1,13 +1,18 @@
 [![Build Status](https://travis-ci.org/Equanox/gotron.svg?branch=master)](https://travis-ci.org/Equanox/gotron)
 
 # Gotron
-Go Api for ElectronJS.
+Go Api for Electron.
+
+## Example Projects
+A list of boilerplate projects using gotron.
+
+* https://github.com/Marlon-Monroy/gotron-react-boilerplate
 
 ## Prerequisites
 **go1.11** with modules enabled, **nodejs** and **npm** must be available on your system.
 
 ## Quick Start
-On the first run it will download electronjs and stores it in *.gotron* in your working directory.
+On the first run it will download Electron and stores it in *.gotron* in your working directory.
 
 ```go
 package main
@@ -157,10 +162,10 @@ Read about the requirements for cross-compilation in [electron-builders](https:/
 - [x] Vue.js example
 - [ ] Elm example
 - [ ] Flutter Hummingbird example
-- [X] Hide nodejs/electron behind go api
-- [X] Create executables for Win, Linux, MacOSbenchkram-logo
-- [X] Hide nodejs/electron behind go api
-- [ ] Msgs between golang and electronJS renderer process,
+- [X] Hide nodejs/Electron behind go api
+- [X] Create executables for Win, Linux, MacOS
+- [X] Hide nodejs/Electron behind go api
+- [ ] Msgs between golang and Electron renderer process,
       abstracted in a javascript/typescript package
 - [ ] Implement complete BrowserWindow api see => [BrowserWindow.md](BrowserWindow.md)
 - [ ] Implement complete electron-builder api in gotron-builder
