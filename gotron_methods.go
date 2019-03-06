@@ -16,13 +16,14 @@ import (
 	"github.com/Equanox/gotron/internal/file"
 	"github.com/pkg/errors"
 
-	"github.com/puengel/copy"
+	"github.com/otiai10/copy"
 
 	"github.com/Benchkram/errz"
 )
 
 const (
 	templateApplicationDir = "templates/app"
+	gotronFileMode         = os.FileMode(0755)
 )
 
 // Start starts an Instance of gotronbrowserwindow
@@ -119,9 +120,15 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 
 	if firstRun || forceInstall {
 		templateDir := filepath.Join(gbwDirectory, templateApplicationDir)
-		err = copy.Perm(templateDir, gbw.AppDirectory, 0777, 0644)
+		err = copy.Copy(templateDir, gbw.AppDirectory)
 		errz.Fatal(err)
 	}
+
+	err = os.Chmod(gbw.AppDirectory, gotronFileMode)
+	errz.Fatal(err)
+	assetsDir := filepath.Join(gbw.AppDirectory, "assets")
+	err = os.Chmod(assetsDir, gotronFileMode)
+	errz.Fatal(err)
 
 	// If no UI folder is set use default ui files
 	if gbw.UIFolder == "" {
