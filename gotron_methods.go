@@ -23,6 +23,7 @@ import (
 
 const (
 	templateApplicationDir = "templates/app"
+	gotronFileMode         = os.FileMode(0755)
 )
 
 // Start starts an Instance of gotronbrowserwindow
@@ -122,6 +123,12 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 		err = copy.Copy(templateDir, gbw.AppDirectory)
 		errz.Fatal(err)
 	}
+
+	err = os.Chmod(gbw.AppDirectory, gotronFileMode)
+	errz.Fatal(err)
+	assetsDir := filepath.Join(gbw.AppDirectory, "assets")
+	err = os.Chmod(assetsDir, gotronFileMode)
+	errz.Fatal(err)
 
 	// If no UI folder is set use default ui files
 	if gbw.UIFolder == "" {
