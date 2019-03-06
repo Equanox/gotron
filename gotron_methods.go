@@ -16,7 +16,7 @@ import (
 	"github.com/Equanox/gotron/internal/file"
 	"github.com/pkg/errors"
 
-	"github.com/puengel/copy"
+	"github.com/otiai10/copy"
 
 	"github.com/Benchkram/errz"
 )
@@ -119,7 +119,7 @@ func (gbw *BrowserWindow) copyElectronApplication(forceInstall bool) (err error)
 
 	if firstRun || forceInstall {
 		templateDir := filepath.Join(gbwDirectory, templateApplicationDir)
-		err = copy.Perm(templateDir, gbw.AppDirectory, 0777, 0644)
+		err = copy.Copy(templateDir, gbw.AppDirectory)
 		errz.Fatal(err)
 	}
 
