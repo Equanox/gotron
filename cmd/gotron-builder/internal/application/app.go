@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"runtime"
 
@@ -48,6 +49,9 @@ func (app *App) Run() (err error) {
 	errz.Fatal(err)
 
 	err = app.makeTempDir()
+	errz.Fatal(err)
+
+	err = app.makeTempDirJSON()
 	errz.Fatal(err)
 
 	err = app.installDependencies()
@@ -98,6 +102,19 @@ func (app *App) SetTarget(target string) (err error) {
 func (app *App) makeTempDir() (err error) {
 	os.RemoveAll(gotronBuilderDirectory)
 	return os.Mkdir(gotronBuilderDirectory, os.ModePerm)
+}
+
+func (app *App) makeTempDirJSON() (err error) {
+	defer errz.Recover(&err)
+
+	f, err := os.Create(path.Join(gotronBuilderDirectory, "package.json"))
+	errz.Fatal(err)
+
+	defer f.Close()
+	_, err = f.WriteString("{}")
+	errz.Fatal(err)
+
+	return err
 }
 
 func runCmd(runDir, command string, args ...string) (err error) {
