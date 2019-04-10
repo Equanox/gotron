@@ -91,7 +91,7 @@ client.on('connect', function (connection) {
   });
 
   connection.on('close', function () {
-    console.log('Websockt Connection Closed');
+    console.log('Websocket Connection Closed');
     app.quit()
   });
 
