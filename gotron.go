@@ -285,7 +285,9 @@ func (gbw *BrowserWindow) On(ev interface{}, handler func(bin []byte)) {
 	}
 	logger.Debug().Msgf("Adding handler for message: " + eventString)
 
-	//TODO check if a handler was already registered.
+	if _, ok := gbw.handledMessages[eventString]; ok {
+		logger.Warn().Msgf("%s event handler is being overriden", eventString)
+	}
 	gbw.handledMessages[eventString] = handler
 }
 
