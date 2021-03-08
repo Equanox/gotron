@@ -3,6 +3,9 @@
 # Gotron
 Go Api for Electron.
 
+### ⚠️  **[This project is no longer maintained.](https://github.com/pxgrid/aigis/issues/121)** ⚠️
+Feel free to fork and make your own changes if needed.
+
 ## Example Projects
 A list of boilerplate projects using gotron.
 
