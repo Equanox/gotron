@@ -6,6 +6,6 @@
     "websocket": "latest"
   },
   "devDependencies": {
-    "electron": "^2.0.15"
+    "electron": "^9.1.0"
   }
 }
