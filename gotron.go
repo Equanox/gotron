@@ -273,11 +273,22 @@ var upgrader = websocket.Upgrader{ //Upgrader for websockets
 }
 
 // On register handler for messages incoming from js frontend
-func (gbw *BrowserWindow) On(msg EventInterface, handler func(bin []byte)) {
-	logger.Debug().Msgf("Adding handler for message: " + msg.EventString())
+func (gbw *BrowserWindow) On(ev interface{}, handler func(bin []byte)) {
+	eventString := ""
+	switch e := ev.(type) {
+	case string:
+		eventString = e
+	case EventInterface:
+		eventString = e.EventString()
+	default:
+		logger.Panic().Msgf("unknown event %v", ev)
+	}
+	logger.Debug().Msgf("Adding handler for message: " + eventString)
 
-	//TODO check if a handler was already registered.
-	gbw.handledMessages[msg.EventString()] = handler
+	if _, ok := gbw.handledMessages[eventString]; ok {
+		logger.Warn().Msgf("%s event handler is being overriden", eventString)
+	}
+	gbw.handledMessages[eventString] = handler
 }
 
 // Send send message (with data) to js frontend
