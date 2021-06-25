@@ -58,9 +58,9 @@ When everything worked you should see this
 
 
 ### Use Your Own WebUI
-gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. make sure it contains at least a index.html as entrypoint.
+gotron expects a folder containing your HTML/JS/CSS code and passes it to electronJS. Make sure it contains at least an index.html as an entrypoint.
 
-Pass a path to your webUI on gotrons `New(uiFolder ...string)` function.
+Pass a path to your webUI on gotron's `New(uiFolder ...string)` function.
 ```go
 window, err := gotron.New("path/to/your/webui")
 if err != nil {
@@ -70,7 +70,7 @@ if err != nil {
 
 ### Communicate between backend and frontend
 
-Frontend to backend communication is realized through javascript like event driven apporach.
+Frontend to backend communication is realized through javascript like event driven approach.
 
 #### Backend
 
@@ -97,7 +97,7 @@ window.Send(&CustomEvent{
 
 #### Frontend
 
-In frontend a websocket needs to be created. Adress is always localhost and port can be taken from global variable `global.backendPort`
+In frontend a websocket needs to be created. Address is always localhost and port can be taken from global variable `global.backendPort`
 ```javascript
 let ws = new WebSocket("ws://localhost:" + global.backendPort + "/web/app/events");
 ```
@@ -129,13 +129,13 @@ ws.send(JSON.stringify({
 To package a go application together with electornjs use `gotron-builder`.    
 
 #### Install gotron-builder
-We provide executables for Linux, MacOS and Windows.    
+We provide executables for Linux, MacOS, and Windows.    
 Download the newest release from [https://github.com/Equanox/gotron/releases](https://github.com/Equanox/gotron/releases) and add it to your $PATH.
 
 #### Using  gotron-builder
 It expects...
 * a directory containing a golang main package 
-* and a directory with a webUI containing at least a index.html
+* and a directory with a webUI containing at least an index.html
 
 By default it will implicitly use...
 * golang main package from the current directory
